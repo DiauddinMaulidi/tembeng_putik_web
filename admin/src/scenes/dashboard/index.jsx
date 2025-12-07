@@ -1,0 +1,208 @@
+import { Box, Button, Typography } from "@mui/material";
+import Header from "../../components/Header";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
+
+const Dashboard = () => {
+  const [jumlah, setJumlah] = useState(0)
+  const [jumlahDusun, setJumlahDusun] = useState(0)
+  const [jumlahKeluarga, setJumlahKeluarga] = useState(0)
+  const navigate = useNavigate();
+
+    const loadData = async () => {
+      const res = await axios.get("http://localhost:5000/penduduk_tembeng/sum");
+      setJumlah(res.data);
+    };
+
+    const loadDataDusun = async () => {
+      const res = await axios.get("http://localhost:5000/penduduk_tembeng/dusun/sum");
+      setJumlahDusun(res.data);
+    };
+
+    const loadDataKeluarga = async () => {
+      const res = await axios.get("http://localhost:5000/penduduk_tembeng/keluarga");
+      setJumlahKeluarga(res.data);
+    };
+
+
+
+    useEffect(()=> {
+      loadData()
+      loadDataDusun()
+      loadDataKeluarga()
+    }, [])
+
+  return (
+    <Box m="20px">
+      {/* HEADER */}
+      <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Header title="DASHBOARD" />
+      </Box>
+
+      {/* GRID & CHARTS */}
+      <Box
+        display="grid"
+        gridTemplateColumns="repeat(12, 1fr)"
+        gridAutoRows="140px"
+        gap="20px"
+      >
+        {/* ROW 1 */}
+        <Box
+            gridColumn="span 3"
+            backgroundColor="#5a4bb7"
+            color="#fff"
+            borderRadius="8px"
+            display="flex"
+            flexDirection="column"
+            p="20px"
+          >
+            <Typography variant="h3" fontWeight="700">{jumlahDusun}</Typography>
+            <Typography variant="h6">Wilayah Desa</Typography>
+
+            <Box flexGrow={1} />
+
+            <Box display="flex" justifyContent="flex-end">
+              <Button
+                variant="text"
+                sx={{ color: "#fff", textTransform: "none" }}
+                endIcon={<span style={{ fontSize: "16px" }}>➜</span>}
+                onClick={() => navigate("/dusun")}
+              >
+                Lihat Detail
+              </Button>
+            </Box>
+          </Box>
+
+        <Box
+          gridColumn="span 3"
+          backgroundColor="#00a7d1"
+          color="#fff"
+          borderRadius="8px"
+          display="flex"
+          flexDirection="column"
+          p="20px"
+        >
+          <Typography variant="h3" fontWeight="700">{jumlah.totalPenduduk}</Typography>
+          <Typography variant="h6">Penduduk</Typography>
+
+          <Box flexGrow={1} />
+
+          <Box display="flex" justifyContent="flex-end">
+            <Button
+              variant="text"
+              sx={{ color: "#fff", textTransform: "none" }}
+              endIcon={<span style={{ fontSize: "16px" }}>➜</span>}
+              onClick={() => navigate("/penduduk")}
+            >
+              Lihat Detail
+            </Button>
+          </Box>
+        </Box>
+
+        <Box
+            gridColumn="span 3"
+            backgroundColor="#0c9b57"
+            color="#fff"
+            borderRadius="8px"
+            display="flex"
+            flexDirection="column"
+            p="20px"
+          >
+            <Typography variant="h3" fontWeight="700">{jumlahKeluarga.jumlah}</Typography>
+            <Typography variant="h6">Keluarga</Typography>
+
+            <Box flexGrow={1} />
+
+            <Box display="flex" justifyContent="flex-end">
+              <Button
+                variant="text"
+                sx={{ color: "#fff", textTransform: "none" }}
+                endIcon={<span style={{ fontSize: "16px" }}>➜</span>}
+                onClick={() => navigate("/keluarga")}
+              >
+                Lihat Detail
+              </Button>
+            </Box>
+          </Box>
+        <Box
+            gridColumn="span 3"
+            backgroundColor="#134f96"
+            color="#fff"
+            borderRadius="8px"
+            display="flex"
+            flexDirection="column"
+            p="20px"
+          >
+            <Typography variant="h3" fontWeight="700">19</Typography>
+            <Typography variant="h6">Surat Tercetak</Typography>
+
+            <Box flexGrow={1} />
+
+            <Box display="flex" justifyContent="flex-end">
+              <Button
+                variant="text"
+                sx={{ color: "#fff", textTransform: "none" }}
+                endIcon={<span style={{ fontSize: "16px" }}>➜</span>}
+              >
+                Lihat Detail
+              </Button>
+            </Box>
+          </Box>
+
+          <Box
+              gridColumn="span 3"
+              backgroundColor="#FF6C0C"
+              color="#fff"
+              borderRadius="8px"
+              display="flex"
+              flexDirection="column"
+              p="20px"
+            >
+              <Typography variant="h3" fontWeight="700">200</Typography>
+              <Typography variant="h6">Bantuan</Typography>
+
+              <Box flexGrow={1} />
+
+              <Box display="flex" justifyContent="flex-end">
+                <Button
+                  variant="text"
+                  sx={{ color: "#fff", textTransform: "none" }}
+                  endIcon={<span style={{ fontSize: "16px" }}>➜</span>}
+                >
+                  Lihat Detail
+                </Button>
+              </Box>
+            </Box>
+
+            <Box
+                gridColumn="span 3"
+                backgroundColor="#B6AE9F"
+                color="#fff"
+                borderRadius="8px"
+                display="flex"
+                flexDirection="column"
+                p="20px"
+              >
+                <Typography variant="h3" fontWeight="700">20</Typography>
+                <Typography variant="h6">Rumah Tangga</Typography>
+
+                <Box flexGrow={1} />
+
+                <Box display="flex" justifyContent="flex-end">
+                  <Button
+                    variant="text"
+                    sx={{ color: "#fff", textTransform: "none" }}
+                    endIcon={<span style={{ fontSize: "16px" }}>➜</span>}
+                  >
+                    Lihat Detail
+                  </Button>
+                </Box>
+              </Box>
+      </Box>
+    </Box>
+  );
+};
+
+export default Dashboard;
