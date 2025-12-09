@@ -7,11 +7,11 @@ import Pekerjaan from "./Pekerjaan";
 export default function Infografis() {
     return (
         <div>
-          <div className="mt-24 mx-10">
+          <div className="mt-20 mx-5 md:mx-24">
               <h1 className="text-4xl md:text-[30px] lg:text-[40px] text-red-500 font-bold">INFOGRAFIS DESA</h1>
               <h2 className="md:text-[30px] lg:text-[40px] text-red-500 font-bold">TEMBENG PUTIK</h2>
           </div>
-          <div className="grid grid-cols-1 pr-3 md:grid-cols-2 md:justify-between mt-0 md:mt-25 mx-10">
+          <div className="grid grid-cols-1 pr-3 md:grid-cols-2 md:justify-between mt-0 mx-5 md:mx-24">
             <div>
                 <p className="text-[30px] text-red-500 font-bold sm:text-[40px] mt-15">DEMOGRAFI PENDUDUK</p>
                 <p className="text-xl text-justify">Memberikan informasi lengkap mengenai karakteristik demografi penduduk suatu wilayah.
@@ -24,12 +24,12 @@ export default function Infografis() {
             </div>
           </div>
 
-          <div className="w-full">
-            <h1 className="text-[40px] md:text-3xl lg:text-4xl mt-10 mx-10 text-red-600 font-bold">
+          <div className="mx-5 md:mx-24">
+            <h1 className="text-[40px] md:text-3xl lg:text-4xl mt-10 text-red-600 font-bold">
               Jumlah Penduduk dan Kepala Keluarga
             </h1>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10 mx-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10">
 
               {/* Total Penduduk */}
               <div className="flex items-center bg-gray-100 p-5 rounded-xl shadow">

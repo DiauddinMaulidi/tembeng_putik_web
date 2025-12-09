@@ -13,7 +13,6 @@ const navigation = [
   { name: "Infografis", href: "/infografis"},
   { name: "Berita", href: "/berita"},
   { name: "Belanja", href: "/belanja"},
-  { name: "Login", href: "/login"},
 ];
 
 export default function Navbar() {
@@ -43,7 +42,7 @@ export default function Navbar() {
   return (
     <Disclosure
       as="nav"
-      className={`fixed z-2000 w-full h-20 top-0 ${
+      className={`fixed z-2000 w-full h-20 sm:h-24 lg:h-20 top-0 ${
         isScroll
           ? "bg-blue-950"
           : "bg-transparent shadow-none border-b-0 backdrop-blur-0"
@@ -51,9 +50,9 @@ export default function Navbar() {
     >
       <div className="mx-auto my-2 px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
-          <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+          <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
             {/* Mobile menu button*/}
-            <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 hover:text-white focus:outline-2 focus:-outline-offset-1 focus:outline-indigo-500 ">
+            <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 hover:text-white focus:outline-2 focus:-outline-offset-1 focus:outline-indigo-500">
               <span className="absolute -inset-0.5" />
               <span className="sr-only">Open main menu</span>
               <Bars3Icon
@@ -66,7 +65,7 @@ export default function Navbar() {
               />
             </DisclosureButton>
           </div>
-          <div className="flex flex-1 justify-center my-center sm:items-stretch sm:justify-between">
+          <div className="flex flex-1 flex-wrap justify-center sm:items-stretch sm:justify-between">
               <Link to={`/`}>
                 <div className="flex shrink-0 items-center">
                   <img

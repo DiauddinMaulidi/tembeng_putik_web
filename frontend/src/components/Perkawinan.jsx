@@ -1,4 +1,5 @@
 export default function Perkawinan() {
+
   const data = [
     { title: "Belum Kawin", jumlah: 623, img: "images/belum kawin.svg" },
     { title: "Kawin", jumlah: 458, img: "images/Kawin.svg" },
@@ -9,7 +10,7 @@ export default function Perkawinan() {
   ];
 
   return (
-    <div className="w-[95%] md:w-[85%] mx-auto mt-10">
+    <div className="md:w-[85%] mx-5 md:mx-24 mt-10">
       <h1 className="text-4xl font-bold text-red-600 mb-6">
         Berdasarkan Perkawinan
       </h1>

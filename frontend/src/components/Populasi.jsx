@@ -110,14 +110,18 @@ export default function PopulationPyramid() {
   };
 
   return (
-    <div className="w-full py-20">
-      <h2 className="text-[40px] font-bold text-red-600 mb-6 mx-10">
+    <div className="mx-auto px-4 md:px-24 py-20 w-full">
+      <h2 className="text-[40px] md:text-3xl lg:text-4xl font-bold text-red-600 mb-6">
         Berdasarkan Kelompok Umur
       </h2>
-      <div className="hidden sm:block bg-gray-100 p-5 mx-10 rounded-sm shadow-md h-[600px]">
+
+      {/* Tampilan Desktop */}
+      <div className="hidden sm:block bg-gray-100 p-5 rounded-sm shadow-md w-full h-[600px]">
         <Bar data={dataHorizontal} options={optionsHorizontal} />
       </div>
-      <div className="block sm:hidden bg-gray-100 p-5 mx-10 rounded-sm shadow-md h-[500px]">
+
+      {/* Tampilan Mobile */}
+      <div className="block sm:hidden bg-gray-100 p-5 rounded-sm shadow-md w-full h-[500px] mt-6">
         <Bar data={dataVertical} options={optionsVertical} />
       </div>
     </div>

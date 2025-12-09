@@ -13,9 +13,9 @@ export default function Berita() {
     }, []);
 
   return (
-    <div className="w-full mb-40">
-        <div className="grid grid-cols-3 gap-6 w-full px-4 md:pl-12 md:pr-7">
-            <h1 className="text-[40px] text-blue-700 font-bold col-span-4 mr-10 text-left mt-2 ml-1 mb-1">
+    <div className="mt-20">
+        <div className="grid grid-cols-3 gap-6 mx-5 md:mx-24">
+            <h1 className="text-[40px] text-blue-700 font-bold col-span-4 text-left mt-2 mb-1">
                 Berita Desa
             </h1>
 
@@ -23,7 +23,7 @@ export default function Berita() {
             Menyajikan informasi terbaru tentang peristiwa, berita terkini.
             </p>
         </div>
-        <div className="grid sm:grid-cols-3 justify-center gap-3 sm:justify-between md:pl-12 md:pr-7">
+        <div className="grid sm:grid-cols-3 justify-center gap-3 sm:justify-between mx-5 md:mx-24">
             {beritas.slice(0, 3).map((berita) => (
                 <Link to={`/berita/${berita.judul}`} key={berita.id}>
                     <Card
@@ -41,9 +41,9 @@ export default function Berita() {
                 </Link>
             ))}
         </div>
-        <div className="flex justify-end mt-3">
+        <div className='flex justify-center mt-2 sm:justify-end rounded-sm bg-blue-700 sm:bg-blue-50 mx-5 md:mx-24'>
             <Link to={"/berita"}>
-                <h1 className="p-5 font-bold mb-5">LIHAT LEBIH BANYAK</h1>
+                <h1 className="py-3 font-bold">LIHAT LEBIH BANYAK</h1>
             </Link>
         </div>
     </div>

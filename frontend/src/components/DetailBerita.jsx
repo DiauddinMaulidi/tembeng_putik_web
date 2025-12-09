@@ -28,11 +28,6 @@ export default function DetailBerita() {
     <div className="mt-20 max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 lg:grid-cols-3 gap-10">
       {/* KONTEN KIRI */}
       <div className="lg:col-span-2">
-        <div>
-          <Link to={`/berita`}>
-            <p>back</p>
-          </Link>
-        </div>
         <h1 className="text-3xl md:text-4xl font-bold leading-snug mb-4">
           {berita.judul}
         </h1>

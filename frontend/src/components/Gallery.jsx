@@ -15,8 +15,8 @@ export default function Gallery() {
         console.log('lightGallery has been initialized');
     };
     return (
-        <div className="App w-full pl-0 md:pl-12 md:pr-7 mb-50 justify-between">
-            <div className="w-full px-4 sm:px-0">
+        <div className="App justify-between mt-20">
+            <div className="mx-5 md:mx-24">
                 <h1 className="text-[40px] text-red-700 font-bold col-span-4 text-left mt-2 ml-1 mb-1">
                     GALERI DESA
                 </h1>
@@ -29,13 +29,13 @@ export default function Gallery() {
                 onInit={onInit}
                 speed={500}
                 plugins={[lgThumbnail, lgZoom]}
-                elementClassNames="grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-4 px-2 sm:p-0 sm:mx-0 sm:grid-cols-[repeat(auto-fill,minmax(300px,1fr))]"
+                elementClassNames="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4 mx-10 md:mx-24 sm:grid-cols-[repeat(auto-fill,minmax(300px, 1fr))]"
             >
                 <a href="/images/mtq.jpeg">
                     <img alt="img1" src="/images/mtq.jpeg" className='h-64 object-cover' />
                 </a>
                 <a href="/images/PKH.jpeg">
-                    <img alt="img2" src="/images/PKH.jpeg" className='h-64 w-full object-cover'/>
+                    <img alt="img2" src="/images/PKH.jpeg" className='h-64 object-cover'/>
                 </a>
                 <a href="/images/Pelatihan.jpeg">
                     <img alt="img3" src="/images/Pelatihan.jpeg" className='h-64 object-cover'/>
@@ -49,19 +49,13 @@ export default function Gallery() {
                 <a href="/images/posyandu.jpeg">
                     <img alt="img6" src="/images/posyandu.jpeg" className='h-64 object-cover'/>
                 </a>
-                <a href="/images/posyandu.jpeg">
-                    <img alt="img7" src="/images/posyandu.jpeg" className='h-64 object-cover'/>
-                </a>
-                <a href="/images/posyandu.jpeg">
-                    <img alt="img8" src="/images/posyandu.jpeg" className='h-64 object-cover'/>
-                </a>
             </LightGallery>
 
-            <div className='flex justify-end mt-3'>
-                <Link to={"/gallery"}>
-                    <h1 className="p-5 font-bold mb-5">LIHAT LEBIH BANYAK</h1>
-                </Link>
-            </div>
+        <div className='flex justify-center sm:justify-end mt-3 rounded-sm bg-blue-700 sm:bg-blue-50 mx-5 md:mx-24'>
+            <Link to={"/gallery"}>
+                <h1 className="py-3 font-bold">LIHAT LEBIH BANYAK</h1>
+            </Link>
+        </div>
         </div>
     );
 }

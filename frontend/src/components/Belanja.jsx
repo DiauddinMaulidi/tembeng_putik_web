@@ -27,18 +27,18 @@ const belanjas = [
 
 export default function Belanja() {
   return (
-    <div className="w-full justify-between mb-50">
-      <div className="grid grid-cols-3 gap-2 w-full px-4 md:pl-12 md:pr-7">
-        <h1 className="text-[40px] text-blue-700 font-bold col-span-4 mr-10 text-left mt-2 ml-1 mb-1">
+    <div className="w-full justify-between mt-20">
+      <div className="grid grid-cols-3 gap-2 mx-5 md:mx-24">
+        <h1 className="text-[40px] text-blue-700 font-bold col-span-4 text-left mt-2 mb-1">
           Beli Dari Desa
         </h1>
 
-        <p className="text-xl col-span-4 mr-10 text-left ml-1 mb-9">
+        <p className="text-xl col-span-4 text-left mb-9">
           Melayanan yang disediakan promosi produk UMKM Desa sehingga mampu meningkatkan perekonomian masyarakat Desa.
         </p>
       </div>
 
-      <div className="grid sm:grid-cols-3 gap-3 justify-center sm:justify-between md:pl-12 md:pr-7">
+      <div className="grid sm:grid-cols-3 gap-3 justify-center mx-5 md:mx-24 sm:justify-between">
         {belanjas.slice(0, 3).map((belanja) => (
           <Link to={`/belanja/${belanja.slug}`} key={belanja.id}>
             <Card
@@ -62,11 +62,11 @@ export default function Belanja() {
         ))}
       </div>
 
-      <div className="flex justify-end mt-3">
-        <Link to={"/belanja"}>
-          <h1 className="p-5 font-bold mb-5">LIHAT LEBIH BANYAK</h1>
-        </Link>
-      </div>
+        <div className='flex justify-center mt-2 sm:justify-end rounded-sm bg-blue-700 sm:bg-blue-50 mx-5 md:mx-24'>
+            <Link to={"/belanja"}>
+                <h1 className="py-3 font-bold">LIHAT LEBIH BANYAK</h1>
+            </Link>
+        </div>
     </div>
   );
 }

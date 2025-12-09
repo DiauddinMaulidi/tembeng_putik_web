@@ -3,16 +3,28 @@ import { Link } from 'react-router-dom'
 
 const stafs = [
     {
-        id: 1,
-        image: "/images/pertama.jpeg",
-        nama: "Hj. Suryadi",
-        jabatan: "Stap Desa"
+        id: 11,
+        image: "/images/kesebelas.jpg",
+        nama: "Samsurijal Jami, S.Pd",
+        jabatan: "Sekretaris"
     },
     {
         id: 2,
         image: "/images/kedua.jpeg",
-        nama: "Hj. Suryadi",
-        jabatan: "Stap Desa"
+        nama: "Saiful Wathani HK, SE",
+        jabatan: "Kaur Tu dan dan Umum"
+    },
+    {
+        id: 8,
+        image: "/images/kedelapan.jpeg",
+        nama: "Musip",
+        jabatan: "Kaur Keuangan"
+    },
+    {
+        id: 1,
+        image: "/images/pertama.jpeg",
+        nama: "Suryadi H MR, S.Pd",
+        jabatan: "Kasi Pelayanan"
     },
     {
         id: 3,
@@ -21,40 +33,46 @@ const stafs = [
         jabatan: "Kasi Pemerintahan"
     },
     {
-        id: 4,
-        image: "/images/keempat.jpeg",
-        nama: "Hj. Suryadi",
-        jabatan: "Stap Desa"
-    },
-    {
         id: 5,
         image: "/images/kelima.jpeg",
-        nama: "Hj. Suryadi",
-        jabatan: "Stap Desa"
-    },
-    {
-        id: 6,
-        image: "/images/keenam.jpeg",
-        nama: "Hj. Suryadi",
-        jabatan: "Stap Desa"
+        nama: "Saparwadi, S.Pd",
+        jabatan: "Kasi Kesra"
     },
     {
         id: 7,
         image: "/images/ketuju.jpeg",
-        nama: "ROHMAN SAMI, S.Pd",
+        nama: "Rohman Sani, S.Pd",
         jabatan: "Operator"
     },
     {
-        id: 8,
-        image: "/images/kedelapan.jpeg",
-        nama: "Hj. Suryadi",
-        jabatan: "Stap Desa"
+        id: 4,
+        image: "/images/keempat.jpeg",
+        nama: "Sarapuddin",
+        jabatan: "Kawil TB. Baret I"
     },
     {
-        id: 8,
+        id: 6,
+        image: "/images/keenam.jpeg",
+        nama: "Rohani, S.Pt",
+        jabatan: "Kawil TB. Timuk II"
+    },
+    {
+        id: 9,
+        image: "/images/kesepuluh.jpg",
+        nama: "Jaelani",
+        jabatan: "Kawil TB. Baret II"
+    },
+    {
+        id: 10,
         image: "/images/kesembilan.jpg",
-        nama: "Hj. Suryadi",
-        jabatan: "Stap Desa"
+        nama: "Habiburrahman, S.Pd",
+        jabatan: "Kaur Perencanaan"
+    },
+    {
+        id: 12,
+        image: "/images/duabelas.jpeg",
+        nama: "Hammi",
+        jabatan: "Kawil TB. TImuk I"
     },
 ]
 
@@ -75,7 +93,7 @@ const Pemerintah = () => {
         <div className="bg-neutral-primary-soft rounded-base shadow-xs mx-12 grid justify-center grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {stafs.map((staf) => (
               <div className='grid justify-center'>
-                <img className="rounded-t-md" src={staf.image} alt="" />
+                <img className="rounded-t-md object-cover" src={staf.image} alt="" />
                 <div className='bg-blue-700 rounded-b-md'>
                     <h5 className="mt-3 mb-2 text-2xl font-semibold tracking-tight text-center">{staf.nama}</h5>
                     <h6 className="mb-6 mr-30 text-[15px] tracking-tight w-full text-center">{staf.jabatan}</h6>

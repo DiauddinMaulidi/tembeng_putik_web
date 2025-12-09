@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
@@ -25,43 +25,56 @@ import EditDusun from "./components/EditDusun";
 import Keluarga from "./scenes/keluarga";
 import KeluargaDetail from "./components/KeluargaDetail";
 import Surat from "./components/CetakSurat";
+import Login from "./scenes/login";
 
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
+  const location = useLocation();
+
+  const isLoginPage = location.pathname === "/login";
 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div className="app">
-          <Sidebar isSidebar={isSidebar} />
-          <main className="content">
-            <Topbar setIsSidebar={setIsSidebar} />
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/berita" element={<HalamanBerita />} />
-              <Route path="/berita/tambah" element={<Berita />} />
-              <Route path="/contacts" element={<Contacts />} />
-              <Route path="/invoices" element={<Invoices />} />
-              <Route path="/form" element={<Form />} />
-              <Route path="/bar" element={<Bar />} />
-              <Route path="/pie" element={<Pie />} />
-              <Route path="/line" element={<Line />} />
-              <Route path="/cetaksurat" element={<CetakSurat />} />
-              <Route path="/cetaksurat/cetak/:id" element={<Surat />} />
-              <Route path="/calendar" element={<Calendar />} />
-              <Route path="/geography" element={<Geography />} />
-              <Route path="/penduduk" element={<Penduduk />} />
-              <Route path="/tambah" element={<TambahPenduduk />} />
-              <Route path="/edit/:id" element={<EditPenduduk />} />
-              <Route path="/dusun" element={<Dusun />} />
-              <Route path="/dusun/edit/:id" element={<EditDusun />} />
-              <Route path="/keluarga" element={<Keluarga />} />
-              <Route path="/keluarga/detail/:id" element={<KeluargaDetail />} />
-            </Routes>
-          </main>
-        </div>
+
+        {!isLoginPage && (
+          <div className="app">
+            <Sidebar isSidebar={isSidebar} />
+            <main className="content">
+              <Topbar setIsSidebar={setIsSidebar} />
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/berita" element={<HalamanBerita />} />
+                <Route path="/berita/tambah" element={<Berita />} />
+                <Route path="/contacts" element={<Contacts />} />
+                <Route path="/invoices" element={<Invoices />} />
+                <Route path="/form" element={<Form />} />
+                <Route path="/bar" element={<Bar />} />
+                <Route path="/pie" element={<Pie />} />
+                <Route path="/line" element={<Line />} />
+                <Route path="/cetaksurat" element={<CetakSurat />} />
+                <Route path="/cetaksurat/cetak/:id" element={<Surat />} />
+                <Route path="/calendar" element={<Calendar />} />
+                <Route path="/geography" element={<Geography />} />
+                <Route path="/penduduk" element={<Penduduk />} />
+                <Route path="/tambah" element={<TambahPenduduk />} />
+                <Route path="/edit/:id" element={<EditPenduduk />} />
+                <Route path="/dusun" element={<Dusun />} />
+                <Route path="/dusun/edit/:id" element={<EditDusun />} />
+                <Route path="/keluarga" element={<Keluarga />} />
+                <Route path="/keluarga/detail/:id" element={<KeluargaDetail />} />
+              </Routes>
+            </main>
+          </div>
+        )}
+
+        {isLoginPage && (
+          <Routes>
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        )}
       </ThemeProvider>
     </ColorModeContext.Provider>
   );

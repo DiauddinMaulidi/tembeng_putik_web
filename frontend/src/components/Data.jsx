@@ -15,7 +15,7 @@ const data = [
 
 export default function Data() {
   return (
-    <div className="p-6 bg-white rounded-xl shadow-md">
+    <div className="p-6 bg-white rounded-xl shadow-md mx-5 md:mx-24">
       <h2 className="text-3xl font-bold text-red-700 mb-6">
         Berdasarkan Pendidikan
       </h2>

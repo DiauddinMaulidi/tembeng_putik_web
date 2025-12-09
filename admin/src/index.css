@@ -217,8 +217,160 @@ body,
   overflow: hidden;
 }
 
-
 @page {
   size: A4;
   margin: 0;
 }
+
+/* LOGIN */
+/* Background */
+.login-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1e293b, #334155);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Card */
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  padding: 35px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  color: white;
+}
+
+/* Title */
+.title {
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.subtitle {
+  text-align: center;
+  color: #d1d5db;
+  margin-bottom: 30px;
+}
+
+/* Form */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-size: 14px;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+/* Password field */
+.password-field {
+  position: relative;
+}
+
+.password-field input {
+  width: 100%;
+  padding-right: 70px;
+}
+
+.toggle-btn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  padding: 4px 8px;
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.25);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+}
+
+/* Login button */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background: #3b82f6;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  background: #2563eb;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 25px 0;
+  color: #d1d5db;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.divider span {
+  margin: 0 10px;
+}
+
+/* Google button */
+.google-btn {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  border-radius: 10px;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.google-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Register */
+.register-text {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.register-text a {
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+.register-text a:hover {
+  text-decoration: underline;
+}
+

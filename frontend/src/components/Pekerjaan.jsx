@@ -10,8 +10,8 @@ export default function Pekerjaan() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6 flex justify-center">
-      <div className="w-[95%] md:w-[85%] bg-white rounded-xl p-6 shadow">
+    <div className="min-h-screen bg-gray-100 p-6 flex justify-center ">
+      <div className="w-full max-w-6xl bg-white rounded-xl p-6 shadow">
 
         {/* Title */}
         <h1 className="text-4xl font-bold mb-6 text-red-600">

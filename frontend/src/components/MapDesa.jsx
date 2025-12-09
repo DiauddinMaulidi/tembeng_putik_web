@@ -11,7 +11,7 @@ const markerIcon = new L.Icon({
 export default function MapDesa() {
   return (
     <div className="w-full h-96 mb-80">
-        <div className="px-6 md:pl-12 mt-40 mb-8">
+        <div className="mx-5 md:mx-24 mt-40 mb-8">
             <h1 className="text-2xl text-[40px] font-bold text-blue-600 font-exstrabold tracking-wider">
                 PETA DESA
             </h1>
@@ -19,12 +19,12 @@ export default function MapDesa() {
             Menampilkan Peta Desa dengan <i>interest Poin Desa</i> Tembeng Putik
             </p>
         </div>
-        <div className="px-6 md:px-12">
+        <div className="mx-5 md:mx-24">
             <MapContainer
               center={[-8.58593619824125, 116.58506570469594]}
               zoom={14}
               scrollWheelZoom={false}
-              className="w-full h-[500px] rounded-xl"
+              className="w-full h-[500px] rounded-xl shadow-sm"
             >
               <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 

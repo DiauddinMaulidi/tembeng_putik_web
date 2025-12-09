@@ -3,24 +3,24 @@ import { useParams } from "react-router-dom";
 const belanjas = [
   {
     id: 1,
-    img: "/images/mtq.jpeg",
-    judul: "Burger",
-    slug: "burger",
-    harga: "Rp25.000",
-    kategori: "Makanan",
+    img: "/images/tempe.jpeg",
+    judul: "Tempe",
+    slug: "Tempe",
+    harga: "Rp5.000",
+    kategori: "Kerajinan",
     deskripsi:
-      "Burger lezat dengan roti lembut dan daging pilihan. Sangat cocok untuk menemani waktu santai Anda.",
+      "Pembuatan Tempe",
     rating: 0,
   },
   {
     id: 2,
-    img: "/images/nasgor.jpg",
-    judul: "Nasi Goreng",
-    slug: "nasi-goreng",
+    img: "/images/kerajinan.jpeg",
+    judul: "Kerajinan Tangan",
+    slug: "Kerajinan Tangan",
     harga: "Rp50.000",
-    kategori: "Makanan",
+    kategori: "Kerajinan",
     deskripsi:
-      "Nasi goreng khas desa dengan rasa pedas gurih. Dibuat dengan bahan berkualitas.",
+      "Kerajinan buatan tangan, kuat, awet dan cocok untuk dekorasi rumah.",
     rating: 0,
   },
   {
@@ -98,14 +98,14 @@ export default function DetailBelanja() {
         </a>
 
         {/* Bagikan */}
-        <div className="mt-6">
+        {/* <div className="mt-6">
           <p className="font-semibold mb-2">Bagikan:</p>
           <div className="flex gap-4 text-2xl text-gray-600">
             <i className="bx bxl-facebook-circle hover:text-blue-600 cursor-pointer"></i>
             <i className="bx bxl-whatsapp hover:text-green-600 cursor-pointer"></i>
             <i className="bx bx-link hover:text-gray-800 cursor-pointer"></i>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

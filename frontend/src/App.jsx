@@ -30,7 +30,7 @@ function App() {
   }, [pathname]);
 
   return (
-    <>
+    <div className="bg-blue-50">
       <Navbar />
       <Routes>
         <Route
@@ -58,7 +58,7 @@ function App() {
         <Route path="/belanja" element={<BelanjaAll />} />
       </Routes>
       <Footer />
-    </>
+    </div>
   );
 }
 

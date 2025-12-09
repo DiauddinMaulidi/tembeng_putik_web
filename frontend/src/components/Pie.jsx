@@ -31,12 +31,12 @@ export default function PieDusun() {
   }, []);
 
   return (
-    <div className="w-full mx-auto">
-      <h2 className="text-[40px] md:text-3xl lg:text-4xl font-bold mt-6 mx-10 text-red-700">
+    <div className="mx-auto mb-16 -mt-10">
+      <h2 className="text-[40px] md:text-3xl lg:text-4xl font-bold mt-6 mx-5 md:mx-24 text-red-700">
         Berdasarkan Dusun
       </h2>
 
-      <div className="h-[350px] md:h-[400px] lg:h-[450px] mt-6 bg-gray-100 p-5 mx-10">
+      <div className="h-[350px] md:h-[400px] lg:h-[450px] mt-6 bg-gray-100 p-5 mx-5 md:mx-24">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie

@@ -52,11 +52,11 @@ app.get("/penduduk_tembeng", (req, res) => {
 
 // summary
 app.get("/penduduk_tembeng/sum", (req, res) => {
-    db.query("SELECT * FROM penduduk_tembeng", (err, result) => {
+    db.query("SELECT KEDUDUKAN_DALAM_KELUARGA, JENIS_KELAMIN, NOMOR_KK FROM penduduk_tembeng", (err, result) => {
         if (err) throw err;
 
         const totalPenduduk = result.length;
-        const totalKK = result.filter(r => r["KEDUDUKAN_DALAM_KELUARGA"] === "KEPALA KELUARGA").length;
+        const totalKK = new Set(result.map(r => r["NOMOR_KK"])).size;
         const totalLaki = result.filter(r => r["JENIS_KELAMIN"] === "LAKI-LAKI").length;
         const totalPr = result.filter(r => r["JENIS_KELAMIN"] === "PEREMPUAN").length;
 
