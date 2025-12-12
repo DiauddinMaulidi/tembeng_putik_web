@@ -49,6 +49,7 @@ export default function Berita() {
       // FORM DATA untuk dikirim ke backend
       const fd = new FormData();
       fd.append("title", title);
+      fd.append("penulis", penulis);
       fd.append("subtitle", subtitle);
       fd.append("image", imageFile);
 
@@ -62,6 +63,7 @@ export default function Berita() {
 
       // Reset form
       setTitle("");
+      setPenulis("");
       setSubtitle("");
       handleRemoveImage();
       setErrors({});
@@ -126,6 +128,7 @@ export default function Berita() {
             onChange={(e) => setTitle(e.target.value)}
             className="form-input"
             placeholder="Masukkan judul"
+            style={{color: "black"}}
           />
           {errors.title && <p className="error-text">{errors.title}</p>}
         </div>
@@ -139,6 +142,7 @@ export default function Berita() {
             onChange={(e) => setPenulis(e.target.value)}
             className="form-input"
             placeholder="Sebutkan Penulis"
+            style={{color: "black"}}
           />
           {errors.title && <p className="error-text">{errors.title}</p>}
         </div>
@@ -170,8 +174,7 @@ export default function Berita() {
               setSubtitle("");
               handleRemoveImage();
               setErrors({});
-            }}
-          >
+            }} >
             Reset
           </button>
         </div>

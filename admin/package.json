@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@base-ui/react": "^1.0.0",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@fullcalendar/core": "^5.11.3",
@@ -26,8 +27,11 @@
     "axios": "^1.13.2",
     "bootstrap": "^5.3.8",
     "chart.js": "^3.9.1",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "file-saver": "^2.0.5",
     "formik": "^2.2.9",
+    "lucide-react": "^0.559.0",
     "print-js": "^1.6.0",
     "react": "^18.2.0",
     "react-chartjs-2": "^4.3.1",
@@ -40,6 +44,8 @@
     "react-select": "^5.10.2",
     "react-to-print": "^3.2.0",
     "styled-components": "^6.1.19",
+    "tailwind-merge": "^3.4.0",
+    "tailwindcss-animate": "^1.0.7",
     "web-vitals": "^2.1.4",
     "xlsx": "^0.18.5",
     "yup": "^0.32.11"

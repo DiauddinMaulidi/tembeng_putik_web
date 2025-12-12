@@ -1,10 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Alert from "./alert";
 
 export default function HalamanBerita() {
   const navigate = useNavigate();
   const [dataBerita, setDataBerita] = useState([]);
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
 
 
   // LOAD DATA
@@ -17,10 +20,17 @@ export default function HalamanBerita() {
     }
   };
 
+  // simpan id + buka dialog
+  const handleOpenDelete = (id) => {
+    setDeleteId(id);
+    setAlertOpen(true);
+  };
+
   // DELETE DATA
   const deleteData = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/berita/${id}`);
+      await axios.delete(`http://localhost:5000/berita/${deleteId}`);
+      setAlertOpen(false);
       loadData(); // refresh setelah delete
     } catch (err) {
       console.error("Gagal menghapus:", err);
@@ -35,6 +45,8 @@ export default function HalamanBerita() {
     <div className="container">
       <h2 className="title">Berita Tembeng Putik</h2>
 
+      <Alert open={alertOpen} onOpenChange={setAlertOpen} onConfirm={deleteData} />
+
       <button className="btn-tambah" onClick={() => navigate("/berita/tambah")}>
         Tambah Berita
       </button>
@@ -47,25 +59,27 @@ export default function HalamanBerita() {
             <h5 className="card-title text-3baris">{item.judul}</h5>
             <p className="card-text text-3baris">{item.subJudul}</p>
 
-            <button
-              onClick={() => navigate(`/berita/edit/${item.id}`)}
-              className="btn-edit"
-            >
-              Edit
-            </button>
+            <div className="button-news">
+              <button
+                onClick={() => navigate(`/berita/edit/${item.id}`)}
+                className="btn-edit"
+              >
+                Edit
+              </button>
 
-          <button
-            onClick={() => deleteData(item.id)}
-            style={{
-              background: "#e74c3c",
-              color: "white",
-              padding: "5px 10px",
-              borderRadius: "5px",
-              border: "none",
-            }}
-          >
-            Hapus
-          </button>
+              <button
+                onClick={() => handleOpenDelete(item.id)}
+                style={{
+                  background: "#e74c3c",
+                  color: "white",
+                  padding: "5px 10px",
+                  borderRadius: "5px",
+                  border: "none",
+                }}
+              >
+                Hapus
+              </button>
+            </div>
           </div>
         ))}
       </div>

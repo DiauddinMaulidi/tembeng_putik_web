@@ -17,7 +17,7 @@ export default function Gallery() {
     return (
         <div className="App justify-between mt-20">
             <div className="mx-5 md:mx-24">
-                <h1 className="text-[40px] text-red-700 font-bold col-span-4 text-left mt-2 ml-1 mb-1">
+                <h1 className="text-[40px] text-blue-700 font-bold col-span-4 text-left mt-2 ml-1 mb-1">
                     GALERI DESA
                 </h1>
 

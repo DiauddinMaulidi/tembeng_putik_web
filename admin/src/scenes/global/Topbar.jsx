@@ -1,73 +1,99 @@
-import { Box, IconButton, Menu, MenuItem, useTheme } from "@mui/material";
-import { useContext, useState } from "react";
-import { ColorModeContext } from "../../theme";
+import { useState, useContext } from "react"; // <-- Tambahkan useState
+import { Box, IconButton, useTheme, Menu, MenuItem } from "@mui/material"; // <-- Import Menu dan MenuItem
+import { useNavigate } from "react-router-dom"; // <-- Import useNavigate
+
+import { ColorModeContext, tokens } from "../../theme";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import { useNavigate } from "react-router-dom";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined"; // <-- Import ikon Logout
 
 const Topbar = () => {
-  const theme = useTheme();
-  const colorMode = useContext(ColorModeContext);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
+    const colorMode = useContext(ColorModeContext);
+    const navigate = useNavigate(); // <-- Inisialisasi hook navigasi
 
-  const navigate = useNavigate()
+    // --- STATE UNTUK MENGONTROL MENU PROFILE ---
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl); // Status menu terbuka atau tertutup
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+    // Fungsi untuk membuka menu
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+    // Fungsi untuk menutup menu
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
-  const handleLogout = () => {
-    handleClose();
+    // --- FUNGSI LOGOUT ---
+    const handleLogout = () => {
+        // 1. Hapus token dari Local Storage
+        localStorage.removeItem('token');
 
-    localStorage.removeItem("token");
-    navigate("/login")
-  };
+        // 2. Tutup menu
+        handleClose();
 
+        // 3. Arahkan pengguna kembali ke halaman login
+        navigate('/login');
+    };
+    // ------------------------------------------
 
-  return (
-    <Box display="flex" justifyContent="end" p={2}>
+    return (
+        <Box display="flex" justifyContent="end" p={2}>
 
-      {/* ICONS */}
-      <Box display="flex">
-        <IconButton onClick={colorMode.toggleColorMode}>
-          {theme.palette.mode === "dark" ? (
-            <DarkModeOutlinedIcon />
-          ) : (
-            <LightModeOutlinedIcon />
-          )}
-        </IconButton>
-        <IconButton>
-          <NotificationsOutlinedIcon />
-        </IconButton>
-        <IconButton onClick={handleClick}>
-          <PersonOutlinedIcon />
-        </IconButton>
+            {/* ICONS */}
+            <Box display="flex">
+                <IconButton onClick={colorMode.toggleColorMode}>
+                    {theme.palette.mode === "dark" ? (
+                        <DarkModeOutlinedIcon />
+                    ) : (
+                        <LightModeOutlinedIcon />
+                    )}
+                </IconButton>
+                <IconButton>
+                    <NotificationsOutlinedIcon />
+                </IconButton>
 
-        <Menu
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "right",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-        >
-        <MenuItem onClick={handleLogout}>Log Out</MenuItem>
-      </Menu>
-      </Box>
-    </Box>
-  );
+                {/* --- ICON PROFILE YANG MEMBUKA MENU LOGOUT --- */}
+                <IconButton
+                    onClick={handleClick} // Fungsi yang membuka menu
+                    aria-controls={open ? 'profile-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                >
+                    <PersonOutlinedIcon />
+                </IconButton>
+            </Box>
+
+            {/* --- KOMPONEN MENU DROPDOWN --- */}
+            <Menu
+                anchorEl={anchorEl}
+                id="profile-menu"
+                open={open}
+                onClose={handleClose}
+                onClick={handleClose}
+                // Posisi menu agar muncul di bawah ikon
+                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+            >
+                {/* Opsi 1: Profile (Opsional, Anda bisa menambahkan link ke halaman profile) */}
+                <MenuItem onClick={handleClose}>
+                    <PersonOutlinedIcon sx={{ mr: 1 }} /> Profile Saya
+                </MenuItem>
+
+                {/* Opsi 2: Tombol Logout */}
+                <MenuItem onClick={handleLogout}>
+                    <LogoutOutlinedIcon sx={{ mr: 1 }} /> Logout
+                </MenuItem>
+            </Menu>
+            {/* ------------------------------------- */}
+        </Box>
+    );
 };
 
 export default Topbar;

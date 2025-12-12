@@ -4,12 +4,21 @@ const cors = require("cors");
 const mysql = require("mysql2");
 const multer = require("multer");
 const path = require("path");
+const bodyParser = require("body-parser");
+const jwt = require("jsonwebtoken")
+const dotenv = require("dotenv")
+const bcrypt = require("bcryptjs")
 const PDFDocument = require("pdfkit");
 
+dotenv.config()
 const app = express();
+const saltRounds = 10;
 
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.json());
+
+const JWT_SECRET = process.env.JWT_SECRET || 'secret-key-yang-sangat-rahasia';
 
 // static file
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
@@ -35,6 +44,99 @@ const db = mysql.createConnection({
     password: "",
     database: "data_warga",
     dateStrings: true
+});
+
+const promiseConn = db.promise();
+
+
+app.post('/register', async (req, res) => {
+    const { nama, username, password } = req.body;
+
+    // 1. Validasi Input Dasar
+    if (!nama || !username || !password) {
+        return res.status(400).json({ message: 'Harap lengkapi semua field.' });
+    }
+
+    try {
+        // 2. Cek apakah Username sudah ada (Unique Check)
+        const [users] = await promiseConn.query(
+            'SELECT username FROM users WHERE username = ?',
+            [username]
+        );
+
+        if (users.length > 0) {
+            return res.status(400).json({ message: 'Username sudah digunakan.' });
+        }
+
+        // 3. Hash Password menggunakan bcryptjs
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+        // 4. Simpan Pengguna Baru ke MySQL
+        const insertQuery = `
+            INSERT INTO users (nama, username, password)
+            VALUES (?, ?, ?)
+        `;
+        const [result] = await promiseConn.query(insertQuery, [
+            nama,
+            username,
+            hashedPassword, // Menyimpan HASH password
+        ]);
+
+        // 5. Respon Sukses
+        res.status(201).json({
+            message: 'Pengguna berhasil terdaftar.',
+            userId: result.insertId
+        });
+
+    } catch (error) {
+        res.status(500).json({ message: 'Kesalahan Server Internal.' });
+    }
+});
+
+
+app.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+
+    try {
+        // 1. Cari pengguna di database
+        const [users] = await promiseConn.query(
+            'SELECT id, username, password FROM users WHERE username = ?',
+            [username]
+        );
+
+        if (users.length === 0) {
+            return res.status(401).json({ message: 'Username atau password salah' });
+        }
+
+        const user = users[0];
+
+        // 2. Bandingkan hash password (Menggunakan bcrypt.compare)
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (isMatch) {
+            // 3. Jika berhasil, buat JWT
+            const token = jwt.sign(
+                { id: user.id, username: user.username },
+                JWT_SECRET,
+                { expiresIn: '1h' }
+            );
+
+            // 4. Kirim token kembali ke frontend
+            return res.status(200).json({
+                message: 'Login berhasil',
+                token: token
+            });
+        } else {
+            // 5. Jika password tidak cocok
+            return res.status(401).json({
+                message: 'Username atau password salah'
+            });
+        }
+
+    } catch (error) {
+        console.error('Error saat login:', error);
+        res.status(500).json({ message: 'Kesalahan Server Internal.' });
+    }
 });
 
 
@@ -280,12 +382,12 @@ app.get("/berita", (req, res) => {
 app.post("/berita", upload.single("image"), (req, res) => {
     if (!req.file) return res.status(400).json({ error: "File gambar tidak diterima server" });
 
-    const { title, subtitle } = req.body;
+    const { title, penulis, subtitle } = req.body;
     const filename = req.file.filename;
 
     db.query(
-        "INSERT INTO berita (judul, subJudul, images) VALUES (?, ?, ?)",
-        [title, subtitle, filename],
+        "INSERT INTO berita (judul, penulis, subJudul, images) VALUES (?, ?, ?, ?)",
+        [title, penulis, subtitle, filename],
         (err) => {
             if (err) return res.status(500).json({ error: err });
 

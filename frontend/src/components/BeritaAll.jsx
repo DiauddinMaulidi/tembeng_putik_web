@@ -15,7 +15,7 @@ export default function BeritaAll() {
   return (
     <div className="w-full mb-40">
         <div className="grid grid-cols-3 gap-6 w-full px-4 md:pl-12 md:pr-7 mt-20">
-            <h1 className="text-[40px] text-red-700 font-bold col-span-4 mr-10 text-left mt-2 ml-1 mb-1">
+            <h1 className="text-[40px] text-blue-700 font-bold col-span-4 mr-10 text-left mt-2 ml-1 mb-1">
                 Berita Desa
             </h1>
 

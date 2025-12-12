@@ -20,6 +20,7 @@ import "leaflet/dist/leaflet.css";
 import BeritaAll from "./components/BeritaAll";
 import GaleryAll from "./components/GaleryAll";
 import BelanjaAll from "./components/BelanjaAll";
+import Pendidikan from "./components/Pendidikan";
 import { useEffect } from "react";
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
         <Route path="/berita" element={<BeritaAll />} />
         <Route path="/gallery" element={<GaleryAll />} />
         <Route path="/belanja" element={<BelanjaAll />} />
+        <Route path="/infografis/pendidikan" element={<Pendidikan />} />
       </Routes>
       <Footer />
     </div>
