@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
@@ -28,6 +28,8 @@ import Surat from "./components/CetakSurat";
 import LoginForm from "./components/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { Outlet } from "react-router-dom";
+import Umkm from "./scenes/umkm";
+import EditBerita from "./components/EditBerita";
 
 function Layout({ isSidebar, setIsSidebar }) {
   return (
@@ -62,6 +64,8 @@ function App() {
               <Route path="/" element={<Dashboard />} />
               <Route path="/berita" element={<HalamanBerita />} />
               <Route path="/berita/tambah" element={<Berita />} />
+              <Route path="/berita/edit/:id" element={<EditBerita />} />
+              <Route path="/umkm" element={<Umkm />} />
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/invoices" element={<Invoices />} />
               <Route path="/form" element={<Form />} />

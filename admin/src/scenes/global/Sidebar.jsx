@@ -100,7 +100,14 @@ const Sidebar = () => {
             <Item
               title="Halaman Berita"
               to="/berita"
-              icon={<PeopleOutlinedIcon />}
+              icon={<LocalPostOfficeIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Halaman UMKM"
+              to="/umkm"
+              icon={<BarChartOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />

@@ -399,6 +399,38 @@ app.post("/berita", upload.single("image"), (req, res) => {
     );
 });
 
+app.get("/penduduk_tembeng/berita/edit/:id", (req, res) => {
+    db.query("SELECT * from berita WHERE id=?", [req.params.id], (err, result) => {
+        if (err) throw err;
+
+        if (result.length === 0)
+            return res.status(404).json({ message: "Data tidak ditemukan" });
+
+        res.json(result[0]);
+    })
+})
+
+app.put("/penduduk_tembeng/berita/:id", upload.single("images"), (req, res) => {
+    const { judul, subJudul, penulis } = req.body;
+    const image = req.file ? req.file.filename : null
+
+    let sql = "UPDATE berita SET judul=?, subJudul=?, penulis=?";
+    const params = [judul, subJudul, penulis];
+
+    if (image) {
+        sql += ", images=?";
+        params.push(image);
+    }
+
+    sql += " WHERE id=?";
+    params.push(req.params.id);
+
+    db.query(sql, params, (err, result) => {
+        if (err) throw err;
+        res.json({ message: "Berita Berhasil di perbarui" });
+    })
+})
+
 app.delete("/berita/:id", (req, res) => {
     const id = req.params.id;
 
