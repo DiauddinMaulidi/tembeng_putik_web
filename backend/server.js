@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken")
 const dotenv = require("dotenv")
 const bcrypt = require("bcryptjs")
 const PDFDocument = require("pdfkit");
+const fs = require("fs");
 
 dotenv.config()
 const app = express();
@@ -134,7 +135,6 @@ app.post('/login', async (req, res) => {
         }
 
     } catch (error) {
-        console.error('Error saat login:', error);
         res.status(500).json({ message: 'Kesalahan Server Internal.' });
     }
 });
@@ -171,7 +171,7 @@ app.get("/penduduk_tembeng/sum", (req, res) => {
     });
 });
 
-// GET editable data penduduk
+// GET edit table data penduduk
 app.get("/penduduk_tembeng/edit/:id", (req, res) => {
     db.query("SELECT * FROM penduduk_tembeng WHERE id=?", [req.params.id], (err, result) => {
         if (err) throw err;
@@ -444,6 +444,131 @@ app.delete("/berita/:id", (req, res) => {
         res.json({ message: "Berhasil dihapus" });
     });
 });
+
+
+// =========================================
+//                  UMKM
+// =========================================
+app.get("/penduduk_tembeng/umkm", (req, res) => {
+    db.query("SELECT * FROM umkm ORDER BY id DESC", (err, results) => {
+        if (err) return res.status(500).json({ error: err });
+
+        const formatted = results.map(item => ({
+            ...item,
+            images: item.images ? JSON.parse(item.images) : []
+        }));
+
+        res.json(formatted);
+    })
+})
+
+app.get("/penduduk_tembeng/umkm/edit/:id", (req, res) => {
+    db.query("SELECT * from umkm WHERE id=?", [req.params.id], (err, result) => {
+        if (err) throw err;
+
+        if (result.length === 0)
+            return res.status(404).json({ message: "Data tidak ditemukan" });
+
+        res.json(result[0]);
+    })
+})
+
+app.post("/penduduk_tembeng/umkm", upload.array("images", 5), (req, res) => {
+    const { judul, subJudul, harga, no_wa } = req.body;
+
+    const images = req.files.map(
+        (file) => `${file.filename}`
+    );
+
+    const sql = `
+    INSERT INTO umkm (judul, images, subJudul, harga, no_wa)
+    VALUES (?, ?, ?, ?, ?)
+  `;
+
+    db.query(
+        sql,
+        [judul, JSON.stringify(images), subJudul, harga, no_wa],
+        (err, result) => {
+            if (err) return res.status(500).json(err);
+            res.json({ message: "UMKM berhasil ditambahkan" });
+        }
+    );
+});
+
+app.put(
+    "/penduduk_tembeng/umkm/:id",
+    upload.array("images", 5),
+    (req, res) => {
+        const { id } = req.params;
+
+        db.query(
+            "SELECT images FROM umkm WHERE id = ?",
+            [id],
+            (err, rows) => {
+                if (err) return res.status(500).json(err);
+                if (!rows.length)
+                    return res.status(404).json({ message: "Data tidak ditemukan" });
+
+                let oldImages = [];
+                try {
+                    oldImages = JSON.parse(rows[0].images || "[]");
+                } catch {
+                    oldImages = [];
+                }
+
+                if (req.files && req.files.length > 0) {
+                    oldImages.forEach((img) => {
+                        const filePath = path.join("public/assets", img);
+
+                        if (fs.existsSync(filePath)) {
+                            fs.unlinkSync(filePath);
+                        }
+                    });
+                }
+
+                const newImages =
+                    req.files && req.files.length > 0
+                        ? req.files.map((f) => f.filename)
+                        : oldImages;
+
+                db.query(
+                    `UPDATE umkm
+           SET judul=?, subJudul=?, harga=?, no_wa=?, images=?
+           WHERE id=?`,
+                    [
+                        req.body.judul,
+                        req.body.subJudul,
+                        req.body.harga,
+                        req.body.no_wa,
+                        JSON.stringify(newImages),
+                        id,
+                    ],
+                    (err2) => {
+                        if (err2) return res.status(500).json(err2);
+                        res.json({ message: "UMKM berhasil diperbarui" });
+                    }
+                );
+            }
+        );
+    }
+);
+
+
+app.delete("/penduduk_tembeng/umkm/:id", (req, res) => {
+    const id = req.params.id;
+
+    db.query("DELETE FROM umkm WHERE id=?", [id], (err, result) => {
+        if (err) return res.status(500).json({ error: err });
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: "Data berhasil dihapus" })
+        }
+
+        res.json({ message: "Berhasil dihapus" });
+
+    })
+
+})
 
 
 

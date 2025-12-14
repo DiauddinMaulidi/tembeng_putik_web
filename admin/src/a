@@ -1,85 +1,88 @@
+import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
-import Topbar from "./scenes/global/Topbar";
-import Sidebar from "./scenes/global/Sidebar";
-import Dashboard from "./scenes/dashboard";
-import Invoices from "./scenes/invoices";
-import Contacts from "./scenes/contacts";
-import Bar from "./scenes/bar";
-import Form from "./scenes/form";
-import Line from "./scenes/line";
-import Pie from "./scenes/pie";
-import Geography from "./scenes/geography";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { ColorModeContext, useMode } from "./theme";
-import Calendar from "./scenes/calender";
-import Penduduk from "./scenes/penduduk";
-import CetakSurat from "./scenes/surat";
-import Dusun from "./scenes/dusun";
 
-import TambahPenduduk from "./components/TambahPenduduk";
-import EditPenduduk from "./components/EditPenduduk";
-import HalamanBerita from "./scenes/berita";
-import Berita from "./components/TambahBerita";
-import EditDusun from "./components/EditDusun";
-import Keluarga from "./scenes/keluarga";
-import KeluargaDetail from "./components/KeluargaDetail";
-import Surat from "./components/CetakSurat";
-import Login from "./scenes/login";
-import LoginForm from "./components/Login";
+const belanjas = [
+  {
+    id: 1,
+    images: [
+      "/images/tempe.jpeg",
+      "/images/tempe2.jpeg",
+      "/images/tempe3.jpeg",
+    ],
+    judul: "Tempe",
+    slug: "Tempe",
+    harga: "Rp5.000",
+    kategori: "Kerajinan",
+    deskripsi: "Pembuatan Tempe",
+    rating: 0,
+  },
+];
 
-function App() {
-  const [theme, colorMode] = useMode();
-  const [isSidebar, setIsSidebar] = useState(true);
-  const location = useLocation();
 
-  const isLoginPage = location.pathname === "/login";
+export default function DetailBelanja() {
+  const { judul } = useParams();
+  const produk = belanjas.find((item) => item.slug === judul);
+  const [activeImage, setActiveImage] = useState(
+    produk?.images?.[0]
+  );
+
+  if (!produk)
+    return (
+      <h1 className="text-center mt-10 text-2xl">
+        Produk tidak ditemukan
+      </h1>
+    );
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+    <div className="max-w-6xl mx-auto mt-36 p-6 bg-white rounded-2xl shadow-xl md:flex gap-12">
 
-        {!isLoginPage && (
-          <div className="app">
-            <Sidebar isSidebar={isSidebar} />
-            <main className="content">
-              <Topbar setIsSidebar={setIsSidebar} />
-              <Routes>
-                <Route path="/" element={<Dashboard />} />
-                <Route path="/berita" element={<HalamanBerita />} />
-                <Route path="/berita/tambah" element={<Berita />} />
-                <Route path="/contacts" element={<Contacts />} />
-                <Route path="/login" element={<LoginForm />} />
-                <Route path="/invoices" element={<Invoices />} />
-                <Route path="/form" element={<Form />} />
-                <Route path="/bar" element={<Bar />} />
-                <Route path="/pie" element={<Pie />} />
-                <Route path="/line" element={<Line />} />
-                <Route path="/cetaksurat" element={<CetakSurat />} />
-                <Route path="/cetaksurat/cetak/:id" element={<Surat />} />
-                <Route path="/calendar" element={<Calendar />} />
-                <Route path="/geography" element={<Geography />} />
-                <Route path="/penduduk" element={<Penduduk />} />
-                <Route path="/tambah" element={<TambahPenduduk />} />
-                <Route path="/edit/:id" element={<EditPenduduk />} />
-                <Route path="/dusun" element={<Dusun />} />
-                <Route path="/dusun/edit/:id" element={<EditDusun />} />
-                <Route path="/keluarga" element={<Keluarga />} />
-                <Route path="/keluarga/detail/:id" element={<KeluargaDetail />} />
-              </Routes>
-            </main>
+      {/* ===== IMAGE CARD ===== */}
+      <div className="md:w-1/2">
+        <div className="rounded-2xl border bg-gray-100 p-4 shadow-inner">
+
+          {/* GAMBAR UTAMA */}
+          <div className="rounded-xl bg-white p-3 shadow-md">
+            <img
+              src={activeImage}
+              alt={produk.judul}
+              className="w-full h-[360px] object-cover rounded-lg transition"
+            />
           </div>
-        )}
 
-        {isLoginPage && (
-          <Routes>
-            <Route path="/login" element={<Login />} />
-          </Routes>
-        )}
-      </ThemeProvider>
-    </ColorModeContext.Provider>
+          {/* THUMBNAIL */}
+          <div className="flex gap-3 mt-4">
+            {produk.images.map((img, index) => (
+              <button
+                key={index}
+                onClick={() => setActiveImage(img)}
+                className={`w-20 h-20 border rounded-lg p-1 bg-white shadow
+                ${
+                  activeImage === img
+                    ? "ring-2 ring-red-500"
+                    : "hover:ring-2 hover:ring-gray-300"
+                }`}
+              >
+                <img
+                  src={img}
+                  alt=""
+                  className="w-full h-full object-cover rounded-md"
+                />
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ===== INFO PRODUK ===== */}
+      <div className="md:w-1/2">
+        <h1 className="text-3xl font-bold">{produk.judul}</h1>
+        <p className="text-red-600 text-3xl font-bold mt-5">
+          {produk.harga}
+        </p>
+        <p className="mt-6 text-gray-700">
+          {produk.deskripsi}
+        </p>
+      </div>
+    </div>
   );
 }
-
-export default App;

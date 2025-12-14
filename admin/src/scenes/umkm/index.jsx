@@ -2,38 +2,38 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Alert from "./alert";
+import UmkmDetail from "../../components/Umkm";
 
 export default function Umkm() {
   const navigate = useNavigate();
-  const [dataBerita, setDataBerita] = useState([]);
+  const [dataUmkm, setDataUmkm] = useState([]);
   const [alertOpen, setAlertOpen] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
 
-
-  // LOAD DATA
   const loadData = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/berita");
-      setDataBerita(res.data);
+      const res = await axios.get(
+        "http://localhost:5000/penduduk_tembeng/umkm"
+      );
+      setDataUmkm(res.data);
     } catch (err) {
-      console.error("Gagal memuat berita:", err);
+      console.error("Gagal memuat UMKM:", err);
     }
   };
 
-  // simpan id + buka dialog
   const handleOpenDelete = (id) => {
     setDeleteId(id);
     setAlertOpen(true);
   };
 
-  // DELETE DATA
-  const deleteData = async (id) => {
+  const deleteData = async () => {
     try {
-      await axios.delete(`http://localhost:5000/berita/${deleteId}`);
+      await axios.delete(`http://localhost:5000/penduduk_tembeng/umkm/${deleteId}`);
+      // console.log(tes)
       setAlertOpen(false);
-      loadData(); // refresh setelah delete
+      loadData();
     } catch (err) {
-      console.error("Gagal menghapus:", err);
+      console.error("Gagal menghapus UMKM:", err);
     }
   };
 
@@ -43,26 +43,38 @@ export default function Umkm() {
 
   return (
     <div className="container">
-      <h2 className="title">Daftar UMKM Desa Tembeng Putik</h2>
+      <h2 className="title">UMKM Desa</h2>
 
-      <Alert open={alertOpen} onOpenChange={setAlertOpen} onConfirm={deleteData} />
+      <Alert
+        open={alertOpen}
+        onOpenChange={setAlertOpen}
+        onConfirm={deleteData}
+      />
 
-      <button className="btn-tambah" onClick={() => navigate("/berita/tambah")}>
+      <button
+        className="btn-tambah"
+        onClick={() => navigate("/umkm/tambah")}
+      >
         Tambah UMKM
       </button>
 
-      <div className="berita-wrapper">
-        {dataBerita.map((item) => (
-          <div key={item.id} className="card">
-            <img className="card-image" src={item.images} alt={item.judul} />
-
-            <h5 className="card-title text-3baris">{item.judul}</h5>
-            <p className="card-text text-3baris">{item.subJudul}</p>
-
-            <div className="button-news">
+      <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
+        {dataUmkm.map((item) => (
+          <div key={item.id} style={{position: "relative"}}>
+            <div style={{display: "flex", position: "absolute", width: "100%", justifyContent: "end", gap: 3, padding: 5}}>
               <button
-                onClick={() => navigate(`/berita/edit/${item.id}`)}
-                className="btn-edit"
+                onClick={() => navigate(`/umkm/edit/${item.id}`)}
+                style={{
+                  top: 16,
+                  right: 16,
+                  zIndex: 10,
+                  background: "green",
+                  border: "none",
+                  color: "white",
+                  padding: "6px 12px",
+                  borderRadius: 4,
+                  cursor: "pointer",
+                }}
               >
                 Edit
               </button>
@@ -70,16 +82,22 @@ export default function Umkm() {
               <button
                 onClick={() => handleOpenDelete(item.id)}
                 style={{
-                  background: "#e74c3c",
-                  color: "white",
-                  padding: "5px 10px",
-                  borderRadius: "5px",
+                  top: 16,
+                  right: 16,
+                  zIndex: 10,
+                  background: "#e60023",
                   border: "none",
+                  color: "white",
+                  padding: "6px 12px",
+                  borderRadius: 4,
+                  cursor: "pointer",
                 }}
               >
                 Hapus
               </button>
             </div>
+
+            <UmkmDetail data={item} />
           </div>
         ))}
       </div>

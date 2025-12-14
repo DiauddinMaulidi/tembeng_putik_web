@@ -30,6 +30,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { Outlet } from "react-router-dom";
 import Umkm from "./scenes/umkm";
 import EditBerita from "./components/EditBerita";
+import TambahUmkm from "./components/TambahUmkm";
+import EditUmkm from "./components/EditUmkm";
 
 function Layout({ isSidebar, setIsSidebar }) {
   return (
@@ -66,6 +68,8 @@ function App() {
               <Route path="/berita/tambah" element={<Berita />} />
               <Route path="/berita/edit/:id" element={<EditBerita />} />
               <Route path="/umkm" element={<Umkm />} />
+              <Route path="/umkm/tambah" element={<TambahUmkm />} />
+              <Route path="/umkm/edit/:id" element={<EditUmkm />} />
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/invoices" element={<Invoices />} />
               <Route path="/form" element={<Form />} />

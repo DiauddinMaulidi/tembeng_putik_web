@@ -207,6 +207,7 @@ export default function EditBerita() {
             onChange={(e) => setForm({...form, subJudul: e.target.value})}
             className="form-input"
             placeholder="Masukkan deskripsi"
+            style={{color: "black"}}
           />
           {errors.subJudul && <p className="error-text">{errors.subJudul}</p>}
         </div>
