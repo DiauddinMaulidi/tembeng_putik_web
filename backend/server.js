@@ -10,6 +10,7 @@ const dotenv = require("dotenv")
 const bcrypt = require("bcryptjs")
 const PDFDocument = require("pdfkit");
 const fs = require("fs");
+// const authRoutes = require("./routes/auth");
 
 dotenv.config()
 const app = express();
@@ -18,6 +19,8 @@ const saltRounds = 10;
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
+// app.use("/", authRoutes);
+
 
 const JWT_SECRET = process.env.JWT_SECRET || 'secret-key-yang-sangat-rahasia';
 
@@ -101,7 +104,7 @@ app.post('/login', async (req, res) => {
     try {
         // 1. Cari pengguna di database
         const [users] = await promiseConn.query(
-            'SELECT id, username, password FROM users WHERE username = ?',
+            'SELECT id, username, password, nama FROM users WHERE username = ?',
             [username]
         );
 
@@ -136,6 +139,23 @@ app.post('/login', async (req, res) => {
 
     } catch (error) {
         res.status(500).json({ message: 'Kesalahan Server Internal.' });
+    }
+});
+
+app.get("/me", require("./middleware/verifyToken"), async (req, res) => {
+    try {
+        const [users] = await promiseConn.query(
+            "SELECT id, username, nama FROM users WHERE id = ?",
+            [req.userId]
+        );
+
+        if (users.length === 0) {
+            return res.status(404).json({ message: "User tidak ditemukan" });
+        }
+
+        res.json(users[0]);
+    } catch (err) {
+        res.status(500).json({ message: "Server error" });
     }
 });
 
