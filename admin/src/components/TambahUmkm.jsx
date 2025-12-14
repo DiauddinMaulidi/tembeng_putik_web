@@ -65,7 +65,7 @@ export default function TambahUmkm() {
     <div className="container">
       <h2 className="title">Tambah UMKM</h2>
 
-      <form onSubmit={handleSubmit} className="form" style={{display: 'flex', flexDirection: 'column', gap: '12px', maxWidth: '500px'}}>
+      <form onSubmit={handleSubmit} className="form card-umkm" style={{display: 'flex', flexDirection: 'column', gap: '12px', maxWidth: '500px'}}>
 
         <input
           type="text"

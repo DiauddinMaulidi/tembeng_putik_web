@@ -58,7 +58,7 @@ export default function Umkm() {
         Tambah UMKM
       </button>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 32 }} className="card-umkm">
         {dataUmkm.map((item) => (
           <div key={item.id} style={{position: "relative"}}>
             <div style={{display: "flex", position: "absolute", width: "100%", justifyContent: "end", gap: 3, padding: 5}}>

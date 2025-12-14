@@ -68,6 +68,18 @@ export default function EditUmkm() {
         setPreview(previews);
     }
 
+    const resetForm = () => {
+        setForm({
+            judul: "",
+            images: [],
+            subJudul: "",
+            harga: 0,
+            no_wa: "",
+        });
+        setPreview([]);
+        if (inputRef.current) inputRef.current.value = "";
+    };
+
     const handleSubmit = async (e) => {
       e.preventDefault();
 
@@ -193,7 +205,7 @@ export default function EditUmkm() {
       </section>
 
       <div className="actions">
-        <button type="button" className="btn-text">Reset</button>
+        <button type="button" className="btn-text" onClick={resetForm}>Reset</button>
         <button type="submit" className="btn-primary">Update</button>
       </div>
     </form>

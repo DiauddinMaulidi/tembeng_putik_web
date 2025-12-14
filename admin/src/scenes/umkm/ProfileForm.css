@@ -1,3 +1,25 @@
+:root {
+    --bg-main: #ffffff;
+    --bg-card: #f9fafb;
+    --text-main: #111827;
+    --text-muted: #6b7280;
+    --border-color: #e5e7eb;
+    --input-bg: #ffffff;
+    --btn-primary: #2563eb;
+    --btn-primary-text: #ffffff;
+}
+
+body.dark {
+    --bg-main: #0f172a;
+    --bg-card: #020617;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border-color: #1e293b;
+    --input-bg: #020617;
+    --btn-primary: #22c55e;
+    --btn-primary-text: #052e16;
+}
+
 * {
     box-sizing: border-box;
     font-family: system-ui, sans-serif;
@@ -6,8 +28,14 @@
 .form {
     max-width: 900px;
     margin: auto;
-    color: #fff;
-    padding: 10px;
+
+    background-color: var(--bg-card);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
 }
 
 .section {
@@ -33,17 +61,21 @@
 label {
     font-size: 14px;
     font-weight: 500;
+
+    color: var(--text-main);
 }
 
 input,
 textarea,
 select {
     width: 100%;
-    padding: 8px 12px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 6px;
-    color: #fff;
+
+    background-color: var(--input-bg);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px;
 }
 
 input:focus,
@@ -135,6 +167,10 @@ select:focus {
     border-radius: 6px;
     cursor: pointer;
     padding: 8px 16px;
+}
+
+.card-umkm {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Responsive */
