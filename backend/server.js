@@ -561,7 +561,7 @@ app.delete("/penduduk_tembeng/umkm/:id", (req, res) => {
         if (err) return res.status(500).json({ error: err });
 
         if (result.affectedRows === 0) {
-            return res.status(404).json({ message: "Data berhasil dihapus" })
+            return res.status(404).json({ message: "Data tidak ditemukan" })
         }
 
         res.json({ message: "Berhasil dihapus" });
@@ -570,6 +570,73 @@ app.delete("/penduduk_tembeng/umkm/:id", (req, res) => {
 
 })
 
+
+// =========================================
+//                 GALLERY
+// =========================================
+app.get("/penduduk_tembeng/gallery", (req, res) => {
+    db.query("SELECT * FROM gallery", (err, results) => {
+        if (err) return res.status(500).json({ error: err });
+
+        const baseUrl = "http://localhost:5000/assets/";
+
+        const formatted = results.map(item => ({
+            ...item,
+            images: item.images ? baseUrl + item.images : null
+        }));
+
+        res.json(formatted);
+    })
+})
+app.post("/penduduk_tembeng/gallery", upload.single("image"), (req, res) => {
+    if (!req.file) return res.status(404).json({ error: "File gambar tidak ditemukan" });
+
+    const { nama } = req.body;
+    const filename = req.file.filename
+    db.query("INSERT INTO gallery (nama, images) VALUES (?, ?)", [nama, filename], (err) => {
+        if (err) return res.status(500).json({ error: err });
+
+        res.json({
+            message: "berhasil menyimpan",
+            imageUrl: "http://localhost:5000/assets/" + filename
+        })
+    })
+})
+
+app.delete("/penduduk_tembeng/gallery/:id", (req, res) => {
+    const { id } = req.params;
+
+    // 1. Ambil data gambar dulu
+    db.query("SELECT images FROM gallery WHERE id=?", [id], (err, rows) => {
+        if (err) return res.status(500).json({ error: err });
+
+        if (rows.length === 0) {
+            return res.status(404).json({ message: "Data tidak ditemukan" });
+        }
+
+        // contoh: /uploads/gallery/abc.jpg
+        const imagePath = rows[0].images;
+        // res.json(imagePath)
+
+
+        // 2. Hapus file dari folder
+        const fullPath = path.join(__dirname, `public/assets/${imagePath}`);
+
+        fs.unlink(fullPath, (err) => {
+            // 3. Hapus data dari database
+            db.query("DELETE FROM gallery WHERE id=?", [id], (err, result) => {
+                if (err) return res.status(500).json({ error: err });
+
+                res.json({ message: "Data dan file berhasil dihapus" });
+            }
+            );
+            if (err) {
+                console.error("Gagal hapus file:", err);
+            }
+        });
+    }
+    );
+});
 
 
 // =========================================

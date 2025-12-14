@@ -32,6 +32,8 @@ import Umkm from "./scenes/umkm";
 import EditBerita from "./components/EditBerita";
 import TambahUmkm from "./components/TambahUmkm";
 import EditUmkm from "./components/EditUmkm";
+import Gallery from "./scenes/gallery";
+import TambahGallery from "./components/TambahGalery";
 
 function Layout({ isSidebar, setIsSidebar }) {
   return (
@@ -70,6 +72,8 @@ function App() {
               <Route path="/umkm" element={<Umkm />} />
               <Route path="/umkm/tambah" element={<TambahUmkm />} />
               <Route path="/umkm/edit/:id" element={<EditUmkm />} />
+              <Route path="/gallery" element={<Gallery />} />
+              <Route path="/gallery/tambah" element={<TambahGallery />} />
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/invoices" element={<Invoices />} />
               <Route path="/form" element={<Form />} />
