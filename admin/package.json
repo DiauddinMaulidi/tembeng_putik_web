@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@base-ui/react": "^1.0.0",
+    "@craco/craco": "^7.1.0",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@fullcalendar/core": "^5.11.3",
