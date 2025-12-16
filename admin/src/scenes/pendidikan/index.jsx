@@ -43,7 +43,7 @@ export default function Pendidikan() {
 
   // DELETE DATA
   const deleteData = async (id) => {
-    await axios.delete(`http://localhost:5000/penduduk_tembeng/${id}`);
+    await axios.delete(`http://localhost:5000/pendidikan/${id}`);
     loadData();
   };
 

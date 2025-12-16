@@ -144,7 +144,7 @@ const Dashboard = () => {
             p="20px"
           >
             <Typography variant="h3" fontWeight="700">{jumlahSekolah}</Typography>
-            <Typography variant="h6">Pendidikan</Typography>
+            <Typography variant="h6">Sekolah</Typography>
 
             <Box flexGrow={1} />
 

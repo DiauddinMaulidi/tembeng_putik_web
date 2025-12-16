@@ -10,7 +10,7 @@ import {
 
 const COLORS = ["#4e79a7", "#f28e2b", "#59a14f", "#e15759"];
 
-export default function PiePendidikan({ dataDusun }) {
+export default function PiePendidikan({ dataGender }) {
   const [showLabel, setShowLabel] = useState(true);
 
   useEffect(() => {
@@ -33,13 +33,13 @@ export default function PiePendidikan({ dataDusun }) {
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
-            data={dataDusun}
+            data={dataGender}
             cx="50%"
             cy="50%"
             dataKey="value"
             label={showLabel ? ({ name }) => name : false}
           >
-            {dataDusun.map((_, index) => (
+            {dataGender.map((_, index) => (
               <Cell
                 key={index}
                 fill={COLORS[index % COLORS.length]}

@@ -25,9 +25,11 @@ export default function TambahPenduduk() {
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  const addData = async () => {
+  const addData = async (e) => {
+    e.preventDefault();
+
     await axios.post("http://localhost:5000/penduduk_tembeng", form);
-    navigate("/");
+    navigate("/penduduk");
   };
 
   const inputStyle = {
@@ -55,7 +57,7 @@ export default function TambahPenduduk() {
         padding: "20px",
       }}
     >
-      <div
+      <form onSubmit={addData}
         style={{
           width: "100%",
           maxWidth: "700px",
@@ -144,7 +146,7 @@ export default function TambahPenduduk() {
         </div>
 
         <button
-          onClick={addData}
+          type="submit"
           style={{
             marginTop: "25px",
             width: "100%",
@@ -160,7 +162,7 @@ export default function TambahPenduduk() {
         >
           Simpan Data
         </button>
-      </div>
+      </form>
     </div>
   );
 }

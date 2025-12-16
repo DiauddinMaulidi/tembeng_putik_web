@@ -28,6 +28,8 @@ import Gallery from "./scenes/gallery";
 import TambahGallery from "./components/TambahGalery";
 import Profile from "./scenes/profile";
 import Pendidikan from "./scenes/pendidikan";
+import TambahSekolah from "./components/TambahSekolah";
+import EditPendidikan from "./components/EditPendidikan";
 
 function Layout({ isSidebar, setIsSidebar }) {
   return (
@@ -64,6 +66,8 @@ function App() {
               <Route path="/tambah" element={<TambahPenduduk />} />
               <Route path="/edit/:id" element={<EditPenduduk />} />
               <Route path="/pendidikan" element={<Pendidikan />} />
+              <Route path="/pendidikan/tambah" element={<TambahSekolah />} />
+              <Route path="/pendidikan/edit/:id" element={<EditPendidikan />} />
               <Route path="/dusun" element={<Dusun />} />
               <Route path="/dusun/edit/:id" element={<EditDusun />} />
               <Route path="/keluarga" element={<Keluarga />} />

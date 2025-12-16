@@ -21,6 +21,7 @@ import BeritaAll from "./components/BeritaAll";
 import GaleryAll from "./components/GaleryAll";
 import BelanjaAll from "./components/BelanjaAll";
 import Pendidikan from "./components/Pendidikan";
+import Kesehatan  from "./components/Kesehatan"
 import { useEffect } from "react";
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
         <Route path="/gallery" element={<GaleryAll />} />
         <Route path="/belanja" element={<BelanjaAll />} />
         <Route path="/infografis/pendidikan" element={<Pendidikan />} />
+        <Route path="/infografis/Kesehatan" element={<Kesehatan />} />
       </Routes>
       <Footer />
     </div>

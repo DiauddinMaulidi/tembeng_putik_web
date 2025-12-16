@@ -1,42 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PiePendidikan from "./PiePendidikan";
+import axios from "axios";
 
 export default function Pendidikan() {
   const [activeIndex, setActiveIndex] = useState(null);
-  // const [dataSekolah, setDataSekolah] = useState({
-  //   nama: "",
-  //   kepsek: "",
-  //   jumlahMurid: 0,
-  //   totalLaki: 0,
-  //   totalPr: 0,
-  //   statusSekolah: "",
-  //   jumlahGuru: 0,
-  //   img: null,
-  // })
+  const [dataSekolah, setDataSekolah] = useState([])
 
-  const dataSekolah = [
-    {
-      nama: "TK PGRI 06 TB PUTIK",
-      jumlah: 36,
-      img: "/images/school.svg",
-      kepsek: "qwerty",
-      dusun: [
-        { name: "Laki-laki", value: 20 },
-        { name: "Perempuan", value: 30 },
-      ],
-    },
-    {
-      nama: "SD 1 NEGERI TB PUTIK",
-      jumlah: 148,
-      img: "/images/school.svg",
-      kepsek: "asdfg",
-      dusun: [
-        { name: "Laki-laki", value: 40 },
-        { name: "Perempuan", value: 10 },
-      ],
-    },
-  ];
+  const loadData = async () => {
+    const res = await axios.get("http://localhost:5000/pendidikan")
+    setDataSekolah(res.data)
+  }
 
+  useEffect(() => {
+    loadData();
+  }, [])
 
 
   return (
@@ -62,12 +39,12 @@ export default function Pendidikan() {
                 `}
               >
                 <div className="flex items-center">
-                  <img src={item.img} className="w-20" alt="" />
+                  <img src="/images/school.svg" className="w-20" alt="" />
                   <div className="ml-5">
-                    <p className="text-xl font-bold">{item.nama}</p>
+                    <p className="text-xl font-bold">{item['nama_sekolah']}</p>
                     <p className="text-xl font-bold text-black">
                       <span className="text-2xl text-blue-700 font-extrabold">
-                        {item.jumlah}
+                        {item["total_siswa"]}
                       </span>{" "}
                       Siswa/i
                     </p>
@@ -77,13 +54,13 @@ export default function Pendidikan() {
                 {isActive && (
                   <>
                     <div className="mt-6 text-xl grid grid-cols-2 gap-4 text-gray-700">
-                      <p>Status Sekolah: Swasta</p>
-                      <p>Kepala Sekolah: {item.kepsek}</p>
-                      <p>Jumlah Guru: 5</p>
+                      <p>Status Sekolah: {item["status_sekolah"]}</p>
+                      <p>Kepala Sekolah: {item["kepsek"]}</p>
+                      <p>Jumlah Guru: {item["jumlah_guru"]}</p>
                     </div>
 
                     {/* KIRIM DATA KE PIE */}
-                    <PiePendidikan dataDusun={item.dusun} />
+                    <PiePendidikan dataGender={[ { name: "Laki-laki", value: item["total_laki"] }, { name: "Perempuan", value: item["total_perempuan"] } ]} />
                   </>
                 )}
               </div>

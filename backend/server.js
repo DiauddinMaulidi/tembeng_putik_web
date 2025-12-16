@@ -285,6 +285,50 @@ app.get("/pendidikan/sum", (req, res) => {
     })
 })
 
+app.get("/pendidikan/edit/:id", (req, res) => {
+    db.query("SELECT * FROM pendidikan WHERE id=?", [req.params.id], (err, result) => {
+        if (err) throw err;
+        if (result.length === 0) {
+            return res.status(404).json({ message: "Data sekolah tidak ditemukan" });
+        }
+        res.json(result[0]);
+    });
+});
+
+app.post("/pendidikan", (req, res) => {
+    const { namaSekolah, kepsek, totalSiswa, totalLaki, totalPr, statusSekolah, jumlahGuru } = req.body;
+
+    db.query("INSERT INTO pendidikan ( nama_sekolah, kepsek, total_siswa, total_laki, total_perempuan, status_sekolah, jumlah_guru ) VALUES (?, ?, ?, ?, ?, ?, ?)", [namaSekolah, kepsek, totalSiswa, totalLaki, totalPr, statusSekolah, jumlahGuru], (err, result) => {
+        if (err) throw err;
+        res.json({ id: result.id })
+    })
+})
+
+app.put("/pendidikan/edit/:id", (req, res) => {
+    const {
+        namaSekolah, kepsek, totalSiswa, totalLaki, totalPerempuan, statusSekolah, jumlahGuru
+    } = req.body;
+
+    db.query(
+        `UPDATE pendidikan SET
+            nama_sekolah=?, kepsek=?, total_siswa=?, total_laki=?, total_perempuan=?, status_sekolah=?, jumlah_guru=?
+         WHERE id=?`,
+        [
+            namaSekolah, kepsek, totalSiswa, totalLaki, totalPerempuan, statusSekolah, jumlahGuru, req.params.id
+        ],
+        (err) => {
+            if (err) throw err;
+            res.json({ success: true });
+        }
+    );
+});
+
+app.delete("/pendidikan/:id", (req, res) => {
+    db.query("DELETE FROM pendidikan WHERE id=?", [req.params.id], (err) => {
+        if (err) throw err;
+        res.json({ success: true });
+    });
+});
 
 // =========================================
 //                CRUD DUSUN
