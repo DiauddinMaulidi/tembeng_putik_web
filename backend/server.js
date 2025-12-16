@@ -264,6 +264,27 @@ app.delete("/penduduk_tembeng/:id", (req, res) => {
     });
 });
 
+// =========================================
+//                 PENDIDIKAN
+// =========================================
+
+app.get("/pendidikan", (req, res) => {
+    db.query("SELECT * FROM pendidikan", (err, result) => {
+        if (err) alert("sekolah kosong")
+        res.json(result)
+    })
+})
+
+app.get("/pendidikan/sum", (req, res) => {
+    db.query("SELECT nama_sekolah FROM pendidikan", (err, result) => {
+        if (err) throw err;
+
+        const totalSekolah = result.length;
+
+        res.json(totalSekolah);
+    })
+})
+
 
 // =========================================
 //                CRUD DUSUN
@@ -626,7 +647,6 @@ app.post("/penduduk_tembeng/gallery", upload.single("image"), (req, res) => {
 app.delete("/penduduk_tembeng/gallery/:id", (req, res) => {
     const { id } = req.params;
 
-    // 1. Ambil data gambar dulu
     db.query("SELECT images FROM gallery WHERE id=?", [id], (err, rows) => {
         if (err) return res.status(500).json({ error: err });
 
@@ -634,16 +654,12 @@ app.delete("/penduduk_tembeng/gallery/:id", (req, res) => {
             return res.status(404).json({ message: "Data tidak ditemukan" });
         }
 
-        // contoh: /uploads/gallery/abc.jpg
         const imagePath = rows[0].images;
-        // res.json(imagePath)
 
 
-        // 2. Hapus file dari folder
         const fullPath = path.join(__dirname, `public/assets/${imagePath}`);
 
         fs.unlink(fullPath, (err) => {
-            // 3. Hapus data dari database
             db.query("DELETE FROM gallery WHERE id=?", [id], (err, result) => {
                 if (err) return res.status(500).json({ error: err });
 
@@ -657,62 +673,6 @@ app.delete("/penduduk_tembeng/gallery/:id", (req, res) => {
     }
     );
 });
-
-
-// =========================================
-//                 SURAT SKTM
-// =========================================
-
-// get last nomor surat
-app.get("/penduduk_tembeng/surat/number", (req, res) => {
-    db.query("SELECT * FROM tabel_surat", (err, result) => {
-        if (err) return res.status(500).json({ error: err });
-
-        const last = result
-        res.json(last);
-    });
-});
-
-// insert surat SKTM
-app.post("/surat/sktm", (req, res) => {
-    const { nomor_surat, pemohon_id, keperluan, berlaku_dari, berlaku_sampai, penanda_tangan } = req.body;
-
-    const q = `
-        INSERT INTO desa_surat
-        (nomor_surat, pemohon_id, keperluan, berlaku_dari, berlaku_sampai, penanda_tangan)
-        VALUES (?, ?, ?, ?, ?, ?)
-    `;
-
-    db.query(
-        q,
-        [nomor_surat, pemohon_id, keperluan, berlaku_dari, berlaku_sampai, penanda_tangan],
-        (err, result) => {
-            if (err) return res.status(500).json({ error: err });
-            res.json({ status: "success", id: result.insertId });
-        }
-    );
-});
-
-// get detail surat SKTM
-app.get("/surat/sktm/:id", (req, res) => {
-    const q = `
-        SELECT s.*,
-               p.NIK, p.NAMA_LENGKAP, p.TEMPAT_LAHIR, p.TANGGAL_LAHIR,
-               p.JENIS_KELAMIN, p.AGAMA, p.STATUS_PERKAWINAN,
-               p.PEKERJAAN, p.ALAMAT_LENGKAP
-        FROM desa_surat s
-        LEFT JOIN penduduk_tembeng p ON s.pemohon_id = p.id
-        WHERE s.id = ?
-    `;
-
-    db.query(q, [req.params.id], (err, result) => {
-        if (err) return res.status(500).json({ error: err });
-        if (!result.length) return res.status(404).json({ message: "Data tidak ditemukan" });
-
-        res.json(result[0]);
-    });
-});
-
 
 // =========================================
 //               START SERVER

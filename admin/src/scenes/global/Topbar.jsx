@@ -6,7 +6,6 @@ import { ColorModeContext, tokens } from "../../theme";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined"; // <-- Import ikon Logout
 
@@ -27,6 +26,7 @@ const Topbar = () => {
 
     // Fungsi untuk menutup menu
     const handleClose = () => {
+        navigate("/profile")
         setAnchorEl(null);
     };
 

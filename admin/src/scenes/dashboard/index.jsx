@@ -7,6 +7,7 @@ import { useEffect } from "react";
 
 const Dashboard = () => {
   const [jumlah, setJumlah] = useState(0)
+  const [jumlahSekolah, setJumlahSekolah] = useState(0)
   const [jumlahDusun, setJumlahDusun] = useState(0)
   const [jumlahKeluarga, setJumlahKeluarga] = useState(0)
   const navigate = useNavigate();
@@ -26,12 +27,18 @@ const Dashboard = () => {
       setJumlahKeluarga(res.data);
     };
 
+    const loadDataSekolah = async () => {
+      const res = await axios.get("http://localhost:5000/pendidikan/sum");
+      setJumlahSekolah(res.data);
+    };
+
 
 
     useEffect(()=> {
       loadData()
       loadDataDusun()
       loadDataKeluarga()
+      loadDataSekolah()
     }, [])
 
   return (
@@ -126,6 +133,33 @@ const Dashboard = () => {
               </Button>
             </Box>
           </Box>
+
+          <Box
+            gridColumn="span 3"
+            backgroundColor="#F79A19"
+            color="#fff"
+            borderRadius="8px"
+            display="flex"
+            flexDirection="column"
+            p="20px"
+          >
+            <Typography variant="h3" fontWeight="700">{jumlahSekolah}</Typography>
+            <Typography variant="h6">Pendidikan</Typography>
+
+            <Box flexGrow={1} />
+
+            <Box display="flex" justifyContent="flex-end">
+              <Button
+                variant="text"
+                sx={{ color: "#fff", textTransform: "none" }}
+                endIcon={<span style={{ fontSize: "16px" }}>➜</span>}
+                onClick={() => navigate("/pendidikan")}
+              >
+                Lihat Detail
+              </Button>
+            </Box>
+          </Box>
+
       </Box>
     </Box>
   );

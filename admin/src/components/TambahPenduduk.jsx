@@ -30,30 +30,137 @@ export default function TambahPenduduk() {
     navigate("/");
   };
 
+  const inputStyle = {
+    width: "100%",
+    padding: "12px",
+    borderRadius: "8px",
+    border: "1px solid #ccc",
+    fontSize: "14px",
+  };
+
+  const labelStyle = {
+    fontWeight: "600",
+    marginBottom: "6px",
+    display: "block",
+  };
+
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Tambah Penduduk</h2>
-
-      <input name="nama" placeholder="Nama" onChange={handleChange} />
-      <input name="jenisKelamin" placeholder="Jenis Kelamin" onChange={handleChange} />
-      <input name="statusPerkawinan" placeholder="Status Perkawinan" onChange={handleChange} />
-      <input name="tempatLahir" placeholder="Tempat Lahir" onChange={handleChange} />
-      <input name="tanggalLahir" type="date" onChange={handleChange} />
-      <input name="agama" placeholder="Agama" onChange={handleChange} />
-      <input name="pendidikan" placeholder="Pendidikan" onChange={handleChange} />
-      <input name="pekerjaan" placeholder="Pekerjaan" onChange={handleChange} />
-      <input name="kewarganegaraan" placeholder="Kewarganegaraan" onChange={handleChange} />
-      <input name="alamat" placeholder="Alamat" onChange={handleChange} />
-      <input name="kedudukan" placeholder="Kedudukan" onChange={handleChange} />
-      <input name="nik" placeholder="NIK" onChange={handleChange} />
-      <input name="nomorKK" placeholder="Nomor KK" onChange={handleChange} />
-
-      <button
-        onClick={addData}
-        style={{ background: "green", color: "#fff", padding: "8px", marginTop: "10px" }}
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "linear-gradient(135deg, #0f172a, #020617)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "20px",
+      }}
+    >
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "700px",
+          background: "#fff",
+          borderRadius: "12px",
+          padding: "25px",
+          boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
+        }}
       >
-        Simpan
-      </button>
+        <h2 style={{ textAlign: 'center', marginBottom: "20px", color: "#0f172a" }}>
+          Tambah Penduduk
+        </h2>
+
+        <div style={{ display: "grid", gap: "15px" }}>
+          <div>
+            <label style={labelStyle}>Nama</label>
+            <input name="nama" style={inputStyle} onChange={handleChange} />
+          </div>
+
+          <div>
+            <label style={labelStyle}>Jenis Kelamin</label>
+            <input name="jenisKelamin" style={inputStyle} onChange={handleChange} />
+          </div>
+
+          <div>
+            <label style={labelStyle}>Status Perkawinan</label>
+            <input name="statusPerkawinan" style={inputStyle} onChange={handleChange} />
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "15px" }}>
+            <div>
+              <label style={labelStyle}>Tempat Lahir</label>
+              <input name="tempatLahir" style={inputStyle} onChange={handleChange} />
+            </div>
+            <div>
+              <label style={labelStyle}>Tanggal Lahir</label>
+              <input
+                type="date"
+                name="tanggalLahir"
+                style={inputStyle}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+
+          <div>
+            <label style={labelStyle}>Agama</label>
+            <input name="agama" style={inputStyle} onChange={handleChange} />
+          </div>
+
+          <div>
+            <label style={labelStyle}>Pendidikan</label>
+            <input name="pendidikan" style={inputStyle} onChange={handleChange} />
+          </div>
+
+          <div>
+            <label style={labelStyle}>Pekerjaan</label>
+            <input name="pekerjaan" style={inputStyle} onChange={handleChange} />
+          </div>
+
+          <div>
+            <label style={labelStyle}>Kewarganegaraan</label>
+            <input name="kewarganegaraan" style={inputStyle} onChange={handleChange} />
+          </div>
+
+          <div>
+            <label style={labelStyle}>Alamat</label>
+            <input name="alamat" style={inputStyle} onChange={handleChange} />
+          </div>
+
+          <div>
+            <label style={labelStyle}>Kedudukan</label>
+            <input name="kedudukan" style={inputStyle} onChange={handleChange} />
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "15px" }}>
+            <div>
+              <label style={labelStyle}>NIK</label>
+              <input name="nik" style={inputStyle} onChange={handleChange} />
+            </div>
+            <div>
+              <label style={labelStyle}>Nomor KK</label>
+              <input name="nomorKK" style={inputStyle} onChange={handleChange} />
+            </div>
+          </div>
+        </div>
+
+        <button
+          onClick={addData}
+          style={{
+            marginTop: "25px",
+            width: "100%",
+            padding: "12px",
+            borderRadius: "8px",
+            border: "none",
+            background: "#16a34a",
+            color: "#fff",
+            fontWeight: "600",
+            cursor: "pointer",
+            fontSize: "15px",
+          }}
+        >
+          Simpan Data
+        </button>
+      </div>
     </div>
   );
 }

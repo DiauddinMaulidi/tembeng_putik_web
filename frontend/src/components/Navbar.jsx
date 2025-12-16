@@ -23,7 +23,7 @@ const navigation = [
   { name: "Profil Desa", href: "/profilDesa" },
   { name: "Infografis", href: "/infografis", dropdown: true },
   { name: "Berita", href: "/berita" },
-  { name: "Belanja", href: "/belanja" },
+  { name: "Produk UMKM", href: "/belanja" },
 ]
 
 export default function Navbar() {
@@ -98,7 +98,7 @@ export default function Navbar() {
                     <NavigationMenu key={item.name}>
                       <NavigationMenuList>
                         <NavigationMenuItem>
-                          <NavigationMenuTrigger className="font-bold text-base text-gray-300 bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent data-[state=open]:text-whitedata-[highlighted]:bg-transparent shadow-none active:text-white focus:text-white">
+                          <NavigationMenuTrigger className="font-bold text-base text-gray-300 bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent data-[state=open]:text-white data-highlighted:bg-transparent shadow-none active:text-white focus:text-white">
                             {item.name}
                           </NavigationMenuTrigger>
                           <NavigationMenuContent className={`${isScroll ? "bg-blue-900 text-white" : "bg-blue-950/70 text-white backdrop-blur"} rounded-md`}>
@@ -107,7 +107,7 @@ export default function Navbar() {
                                 <NavigationMenuLink asChild>
                                   <Link to="/infografis">
                                     <div className="font-medium">
-                                      Data Penduduk
+                                      Penduduk
                                     </div>
                                     <div className="text-muted-foreground">
                                       Statistik jumlah penduduk.
@@ -132,7 +132,18 @@ export default function Navbar() {
                                       Kesehatan
                                     </div>
                                     <div className="text-muted-foreground">
-                                      Fasilitas dan data kesehatan desa.
+                                      Informasi kesehatan masyarakat.
+                                    </div>
+                                  </Link>
+                                </NavigationMenuLink>
+
+                                <NavigationMenuLink asChild>
+                                  <Link to="/infografis/bantuan">
+                                    <div className="font-medium">
+                                      Bantuan
+                                    </div>
+                                    <div className="text-muted-foreground">
+                                      Informasi bantuan di desa.
                                     </div>
                                   </Link>
                                 </NavigationMenuLink>

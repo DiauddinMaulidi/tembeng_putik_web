@@ -1,4 +1,3 @@
-
 import Agama from "./Agama";
 import Perkawinan from "./Perkawinan";
 import Cuy from "./Cuy";
@@ -19,7 +18,7 @@ export default function Infografis() {
             <div className="grid grid-cols-1 pr-3 sm:grid-cols-2 mt-25 ml-10">
                 <div>
                     <p className="text-[30px] text-red-500 font-bold sm:text-[40px] mt-15">DEMOGRAFI PENDUDUK</p>
-                    <p className="text-xl text-justify">Memberikan informasi lengkap mengenai karakteristik demografi penduduk suatu wilayah. 
+                    <p className="text-xl text-justify">Memberikan informasi lengkap mengenai karakteristik demografi penduduk suatu wilayah.
                         Mulai dari jumlah penduduk, usia, jenis kelamin, tingkat pendidikan, pekerjaan, agama,
                         dan aspek penting lainnya yang menggambarkan komposisi populasi secara rinci.
 
@@ -75,13 +74,12 @@ export default function Infografis() {
 
   </div>
 </div>
-
-            <PopulationPyramid />
-            <PieDusun />
-            <Data/>
-            <Cuy/>
-            <Perkawinan/>
-            <Agama/>
-        </div>
-    );
+      <PopulationPyramid />
+      <PieDusun />
+      <Data/>
+      <Cuy/>
+      <Perkawinan/>
+      <Agama/>
+    </div>
+  );
 }

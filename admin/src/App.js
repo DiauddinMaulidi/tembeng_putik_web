@@ -3,18 +3,11 @@ import { Routes, Route } from "react-router-dom";
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/dashboard";
-import Invoices from "./scenes/invoices";
-import Contacts from "./scenes/contacts";
-import Bar from "./scenes/bar";
 import Form from "./scenes/form";
-import Line from "./scenes/line";
-import Pie from "./scenes/pie";
-import Geography from "./scenes/geography";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Calendar from "./scenes/calender";
 import Penduduk from "./scenes/penduduk";
-import CetakSurat from "./scenes/surat";
 import Dusun from "./scenes/dusun";
 
 import TambahPenduduk from "./components/TambahPenduduk";
@@ -24,7 +17,6 @@ import Berita from "./components/TambahBerita";
 import EditDusun from "./components/EditDusun";
 import Keluarga from "./scenes/keluarga";
 import KeluargaDetail from "./components/KeluargaDetail";
-import Surat from "./components/CetakSurat";
 import LoginForm from "./components/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { Outlet } from "react-router-dom";
@@ -34,6 +26,8 @@ import TambahUmkm from "./components/TambahUmkm";
 import EditUmkm from "./components/EditUmkm";
 import Gallery from "./scenes/gallery";
 import TambahGallery from "./components/TambahGalery";
+import Profile from "./scenes/profile";
+import Pendidikan from "./scenes/pendidikan";
 
 function Layout({ isSidebar, setIsSidebar }) {
   return (
@@ -66,6 +60,14 @@ function App() {
               element={<Layout isSidebar={isSidebar} setIsSidebar={setIsSidebar} />}
             >
               <Route path="/" element={<Dashboard />} />
+              <Route path="/penduduk" element={<Penduduk />} />
+              <Route path="/tambah" element={<TambahPenduduk />} />
+              <Route path="/edit/:id" element={<EditPenduduk />} />
+              <Route path="/pendidikan" element={<Pendidikan />} />
+              <Route path="/dusun" element={<Dusun />} />
+              <Route path="/dusun/edit/:id" element={<EditDusun />} />
+              <Route path="/keluarga" element={<Keluarga />} />
+              <Route path="/keluarga/detail/:id" element={<KeluargaDetail />} />
               <Route path="/berita" element={<HalamanBerita />} />
               <Route path="/berita/tambah" element={<Berita />} />
               <Route path="/berita/edit/:id" element={<EditBerita />} />
@@ -74,23 +76,9 @@ function App() {
               <Route path="/umkm/edit/:id" element={<EditUmkm />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/gallery/tambah" element={<TambahGallery />} />
-              <Route path="/contacts" element={<Contacts />} />
-              <Route path="/invoices" element={<Invoices />} />
-              <Route path="/form" element={<Form />} />
-              <Route path="/bar" element={<Bar />} />
-              <Route path="/pie" element={<Pie />} />
-              <Route path="/line" element={<Line />} />
-              <Route path="/cetaksurat" element={<CetakSurat />} />
-              <Route path="/cetaksurat/cetak/:id" element={<Surat />} />
               <Route path="/calendar" element={<Calendar />} />
-              <Route path="/geography" element={<Geography />} />
-              <Route path="/penduduk" element={<Penduduk />} />
-              <Route path="/tambah" element={<TambahPenduduk />} />
-              <Route path="/edit/:id" element={<EditPenduduk />} />
-              <Route path="/dusun" element={<Dusun />} />
-              <Route path="/dusun/edit/:id" element={<EditDusun />} />
-              <Route path="/keluarga" element={<Keluarga />} />
-              <Route path="/keluarga/detail/:id" element={<KeluargaDetail />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/form" element={<Form />} />
             </Route>
           </Route>
         </Routes>
