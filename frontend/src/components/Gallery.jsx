@@ -9,8 +9,22 @@ import 'lightgallery/css/lg-thumbnail.css';
 import lgThumbnail from 'lightgallery/plugins/thumbnail';
 import lgZoom from 'lightgallery/plugins/zoom';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export default function Gallery() {
+    const [dataGallery, setDataGallery] = useState([])
+
+    const loadGallery = async () => {
+        const res = await axios.get("http://localhost:5000/penduduk_tembeng/gallery")
+        setDataGallery(res.data)
+    }
+
+    useEffect(() => {
+        loadGallery()
+    }, [])
+
+
     const onInit = () => {
         console.log('lightGallery has been initialized');
     };
@@ -31,24 +45,11 @@ export default function Gallery() {
                 plugins={[lgThumbnail, lgZoom]}
                 elementClassNames="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4 mx-10 md:mx-24 sm:grid-cols-[repeat(auto-fill,minmax(300px, 1fr))]"
             >
-                <a href="/images/mtq.jpeg">
-                    <img alt="img1" src="/images/mtq.jpeg" className='h-64 object-cover' />
-                </a>
-                <a href="/images/PKH.jpeg">
-                    <img alt="img2" src="/images/PKH.jpeg" className='h-64 object-cover'/>
-                </a>
-                <a href="/images/Pelatihan.jpeg">
-                    <img alt="img3" src="/images/Pelatihan.jpeg" className='h-64 object-cover'/>
-                </a>
-                <a href="/images/rapat.jpeg">
-                    <img alt="img4" src="/images/rapat.jpeg" className='h-64 object-cover'/>
-                </a>
-                <a href="/images/mtq2.jpeg">
-                    <img alt="img5" src="/images/mtq2.jpeg" className='h-64 object-cover'/>
-                </a>
-                <a href="/images/posyandu.jpeg">
-                    <img alt="img6" src="/images/posyandu.jpeg" className='h-64 object-cover'/>
-                </a>
+                {dataGallery.slice(0, 6).map((item) => (
+                    <a href={item.images}>
+                        <img alt={item.nama} src={item.images} className='h-64 object-cover' />
+                    </a>
+                ))}
             </LightGallery>
 
         <div className='flex justify-center sm:justify-end mt-3 rounded-sm bg-blue-700 sm:bg-blue-50 mx-5 md:mx-24'>

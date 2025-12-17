@@ -1,19 +1,16 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer, LabelList } from "recharts";
 
-const data = [
-  { name: "Tidak/Belum Sekolah", value: 177 },
-  { name: "Belum Tamat SD/Sederajat", value: 203 },
-  { name: "Tamat SD/Sederajat", value: 288 },
-  { name: "SLTP/Sederajat", value: 139 },
-  { name: "SLTA/Sederajat", value: 288 },
-  { name: "Diploma I/II", value: 21 },
-  { name: "Diploma III/Sarjana Muda", value: 14 },
-  { name: "Diploma IV/Strata I", value: 26 },
-  { name: "Strata II", value: 2 },
-  { name: "Tidak/ Belum Sekolah", value: 200 },
-];
-
 export default function Data() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:5000/penduduk_tembeng/perPendidikan")
+      .then(res => setData(res.data))
+      .catch(err => console.error(err));
+  }, []);
+
   return (
     <div className="p-6 bg-white rounded-xl shadow-md mx-5 md:mx-24">
       <h2 className="text-3xl font-bold text-red-700 mb-6">

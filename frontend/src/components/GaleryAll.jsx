@@ -9,8 +9,21 @@ import 'lightgallery/css/lg-thumbnail.css';
 import lgThumbnail from 'lightgallery/plugins/thumbnail';
 import lgZoom from 'lightgallery/plugins/zoom';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export default function GaleryAll() {
+    const [dataGallery, setDataGallery] = useState([])
+
+        const loadGallery = async () => {
+            const res = await axios.get("http://localhost:5000/penduduk_tembeng/gallery")
+            setDataGallery(res.data)
+        }
+
+        useEffect(() => {
+            loadGallery()
+        }, [])
+
     const onInit = () => {
         console.log('lightGallery has been initialized');
     };
@@ -29,32 +42,13 @@ export default function GaleryAll() {
                 onInit={onInit}
                 speed={500}
                 plugins={[lgThumbnail, lgZoom]}
-                elementClassNames="grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-4 mx-10 sm:mx-0 sm:grid-cols-[repeat(auto-fill,minmax(300px,1fr))]"
+                elementClassNames="grid grid-cols-[repeat(auto-fill,minmax(300px, 1fr))] gap-4 mx-10 md:mx-0 sm:grid-cols-[repeat(auto-fill,minmax(300px,1fr))]"
             >
-                <a href="/images/mtq.jpeg">
-                    <img alt="img1" src="/images/mtq.jpeg" className='h-64 object-cover' />
-                </a>
-                <a href="/images/Pendataan.jpeg">
-                    <img alt="img2" src="/images/Pendataan.jpeg" className='h-64 w-full object-cover'/>
-                </a>
-                <a href="/images/Pelatihan.jpeg">
-                    <img alt="img2" src="/images/Pelatihan.jpeg" className='h-64 object-cover'/>
-                </a>
-                <a href="/images/rapat.jpeg">
-                    <img alt="img2" src="/images/rapat.jpeg" className='h-64 object-cover'/>
-                </a>
-                <a href="/images/posyandu.jpeg">
-                    <img alt="img2" src="/images/posyandu.jpeg" className='h-64 object-cover'/>
-                </a>
-                <a href="/images/posyandu.jpeg">
-                    <img alt="img2" src="/images/posyandu.jpeg" className='h-64 object-cover'/>
-                </a>
-                <a href="/images/posyandu.jpeg">
-                    <img alt="img2" src="/images/posyandu.jpeg" className='h-64 object-cover'/>
-                </a>
-                <a href="/images/posyandu.jpeg">
-                    <img alt="img2" src="/images/posyandu.jpeg" className='h-64 object-cover'/>
-                </a>
+                {dataGallery.map((item) => (
+                    <a href={item.images}>
+                        <img alt={item.nama} src={item.images} className='h-64 object-cover' />
+                    </a>
+                ))}
             </LightGallery>
         </div>
     );

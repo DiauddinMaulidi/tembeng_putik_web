@@ -172,6 +172,43 @@ app.get("/penduduk_tembeng", (req, res) => {
     });
 });
 
+app.get("/penduduk_tembeng/perPendidikan", (req, res) => {
+    db.query("SELECT PENDIDIKAN_TERAKHIR as pendidikan, COUNT(*) AS jumlah FROM penduduk_tembeng GROUP BY PENDIDIKAN_TERAKHIR", (err, result) => {
+        if (err) throw err;
+        const data = result.map(item => ({
+            name: item.pendidikan,
+            value: item.jumlah
+        }));
+
+        res.json(data);
+    });
+});
+
+app.get("/penduduk_tembeng/perPekerjaan", (req, res) => {
+    db.query("SELECT PEKERJAAN as pekerjaan, COUNT(*) AS jumlah FROM penduduk_tembeng GROUP BY PEKERJAAN ORDER BY jumlah DESC", (err, result) => {
+        if (err) throw err;
+        const data = result.map(item => ({
+            name: item.pekerjaan,
+            value: item.jumlah
+        }));
+
+        res.json(data);
+    });
+});
+
+app.get("/penduduk_tembeng/perPerkawinan", (req, res) => {
+    db.query("SELECT STATUS_PERKAWINAN as status, COUNT(*) AS jumlah FROM penduduk_tembeng GROUP BY STATUS_PERKAWINAN", (err, result) => {
+        if (err) throw err;
+        const data = result.map(item => ({
+            name: item.status,
+            value: item.jumlah
+        }));
+
+        res.json(data);
+    });
+});
+
+
 // summary
 app.get("/penduduk_tembeng/sum", (req, res) => {
     db.query("SELECT KEDUDUKAN_DALAM_KELUARGA, JENIS_KELAMIN, NOMOR_KK FROM penduduk_tembeng", (err, result) => {
@@ -190,6 +227,7 @@ app.get("/penduduk_tembeng/sum", (req, res) => {
         });
     });
 });
+
 
 // GET edit table data penduduk
 app.get("/penduduk_tembeng/edit/:id", (req, res) => {
@@ -331,6 +369,69 @@ app.delete("/pendidikan/:id", (req, res) => {
 });
 
 // =========================================
+//                CRUD KESEHATAN
+// =========================================
+
+app.get("/stunting", (req, res) => {
+    const sql = `
+    SELECT id, nama, total, total_laki, total_pr FROM stunting
+  `;
+
+    db.query(sql, (err, rows) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ message: "Gagal mengambil data" });
+        }
+
+        const data = rows.map(item => ({
+            id: item.id,
+            nama: item.nama,
+            jumlah: item.total,
+            dusun: [
+                { name: "Laki-laki", value: item.total_laki },
+                { name: "Perempuan", value: item.total_pr }
+            ]
+        }));
+
+        res.json(data);
+    });
+});
+
+app.get("/kesehatan", (req, res) => {
+    const sql = `
+    SELECT jenis_data, nama_desa, total
+    FROM kesehatan
+    ORDER BY jenis_data
+  `;
+
+    db.query(sql, (err, rows) => {
+        if (err) return res.status(500).json(err);
+
+        const grouped = {};
+
+        rows.forEach(r => {
+            if (!grouped[r.jenis_data]) {
+                grouped[r.jenis_data] = {
+                    nama: r.jenis_data,
+                    jumlah: 0,
+                    dusun: []
+                };
+            }
+
+            grouped[r.jenis_data].jumlah += r.total;
+            grouped[r.jenis_data].dusun.push({
+                name: r.nama_desa,
+                value: r.total
+            });
+        });
+
+        res.json(Object.values(grouped));
+    });
+});
+
+
+
+// =========================================
 //                CRUD DUSUN
 // =========================================
 
@@ -381,6 +482,31 @@ app.put("/penduduk_tembeng/dusun/:id", (req, res) => {
             res.json({ message: "Data dusun berhasil diperbarui" });
         }
     );
+});
+
+app.get("/penduduk_tembeng/dusun/jumlah", (req, res) => {
+    const dataDusun = [
+        "Tembeng Putik Timuk I",
+        "Tembeng Putik Timuk II",
+        "Tembeng Putik Baret I",
+        "Tembeng Putik Baret II",
+        "Lengkok Lendang",
+    ];
+
+    const sql = `
+    SELECT ALAMAT_LENGKAP AS dusun, COUNT(*) AS jumlah FROM penduduk_tembeng WHERE ALAMAT_LENGKAP IN (?) GROUP BY ALAMAT_LENGKAP
+  `;
+
+    db.query(sql, [dataDusun], (err, result) => {
+        if (err) return res.status(500).json(err);
+
+        const data = result.map(item => ({
+            name: item.dusun,
+            value: item.jumlah
+        }));
+
+        res.json(data);
+    });
 });
 
 

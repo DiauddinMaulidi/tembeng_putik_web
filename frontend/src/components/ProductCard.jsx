@@ -1,30 +1,36 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
-
-const belanjas = [
-  {
-    id: 1,
-    images: [
-      "/images/tempe.jpeg",
-      "/images/tempe2.jpeg",
-      "/images/tempe3.jpeg",
-    ],
-    judul: "Tempe",
-    slug: "Tempe",
-    harga: "Rp5.000",
-    kategori: "Kerajinan",
-    deskripsi: "Pembuatan Tempe",
-    rating: 0,
-  },
-];
-
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function DetailBelanja() {
   const { judul } = useParams();
-  const produk = belanjas.find((item) => item.slug === judul);
-  const [activeImage, setActiveImage] = useState(
-    produk?.images?.[0]
-  );
+  const [dataUmkm, setDataUmkm] = useState([]);
+  const [activeImage, setActiveImage] = useState("");
+
+  const BASE_IMG = "http://localhost:5000/assets/";
+
+    const loadData = async () => {
+        try {
+          const res = await axios.get(
+            "http://localhost:5000/penduduk_tembeng/umkm"
+          );
+          setDataUmkm(res.data);
+        } catch (err) {
+          console.error("Gagal memuat UMKM:", err);
+        }
+      };
+
+    useEffect(() => {
+      loadData();
+    }, []);
+
+    const produk = dataUmkm.find((item) => item.judul === judul);
+
+    useEffect(() => {
+      if (produk && produk.images?.length > 0) {
+        setActiveImage(produk.images[0]);
+      }
+    }, [produk]);
 
   if (!produk)
     return (
@@ -43,7 +49,7 @@ export default function DetailBelanja() {
           {/* GAMBAR UTAMA */}
           <div className="rounded-xl bg-white p-3 shadow-md">
             <img
-              src={activeImage}
+              src={`${BASE_IMG}${activeImage}`}
               alt={produk.judul}
               className="w-full h-[360px] object-cover rounded-lg transition"
             />
@@ -63,7 +69,7 @@ export default function DetailBelanja() {
                 }`}
               >
                 <img
-                  src={img}
+                  src={`${BASE_IMG}${img}`}
                   alt=""
                   className="w-full h-full object-cover rounded-md"
                 />
@@ -85,11 +91,11 @@ export default function DetailBelanja() {
             <span>{produk.kategori}</span>
         </div>
         {/* Harga */}
-        <p className="text-3xl font-bold text-red-600 mt-5">{produk.harga}</p>
+        <p className="text-3xl font-bold text-red-600 mt-5">Rp{produk.harga.toLocaleString("id-ID")}</p>
         {/* Deskripsi */}
-        <p className="mt-5 text-gray-700 leading-relaxed"> {produk.deskripsi} </p>
+        <p className="mt-5 text-gray-700 leading-relaxed"> {produk.subJudul} </p>
         {/* Tombol WA */}
-        <a href={"https://wa.me/6281234567890?text=Saya ingin membeli ${produk.judul}}"}
+        <a href={`https://wa.me/${produk.no_wa}?text=Saya ingin membeli ${produk.judul}}`}
         target="_blank"
         className="inline-block bg-green-600 text-white px-5 py-3 rounded-lg mt-6 font-semibold hover:bg-green-700 transition" > Hubungi Penjual </a>
       </div>

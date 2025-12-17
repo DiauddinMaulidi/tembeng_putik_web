@@ -3,8 +3,18 @@ import Data from "./Data";
 import PieDusun from "./Pie";
 import PopulationPyramid from "./Populasi";
 import Pekerjaan from "./Pekerjaan";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Infografis() {
+  const [dataPenduduk, setDataPenduduk] = useState(0);
+
+    useEffect(() => {
+      axios.get("http://localhost:5000/penduduk_tembeng/sum")
+        .then((res) => setDataPenduduk(res.data))
+        .catch((err) => console.log(err));
+    }, []);
+
     return (
         <div>
           <div className="mt-20 mx-5 md:mx-24">
@@ -36,7 +46,7 @@ export default function Infografis() {
                 <img src="images/total_penduduk.png" className="w-20" alt="total_penduduk" />
                 <div className="ml-5">
                   <p className="text-xl md:text-2xl lg:text-3xl font-bold">Total Penduduk</p>
-                  <p className="text-2xl md:text-3xl font-extrabold text-red-700">1.590</p>
+                  <p className="text-2xl md:text-3xl font-extrabold text-red-700">{dataPenduduk.totalPenduduk}</p>
                 </div>
               </div>
 
@@ -45,7 +55,7 @@ export default function Infografis() {
                 <img src="images/kepala_keluarga.png" className="w-20" alt="kk" />
                 <div className="ml-5">
                   <p className="text-xl md:text-2xl lg:text-3xl font-bold">Kepala Keluarga</p>
-                  <p className="text-2xl md:text-3xl font-extrabold text-red-700">1.900</p>
+                  <p className="text-2xl md:text-3xl font-extrabold text-red-700">{dataPenduduk.totalKK}</p>
                 </div>
               </div>
 
@@ -54,7 +64,7 @@ export default function Infografis() {
                 <img src="images/perempuan.png" className="w-20" alt="prempuan" />
                 <div className="ml-5">
                   <p className="text-xl md:text-2xl lg:text-3xl font-bold">Perempuan</p>
-                  <p className="text-2xl md:text-3xl font-extrabold text-red-700">790</p>
+                  <p className="text-2xl md:text-3xl font-extrabold text-red-700">{dataPenduduk.totalPr}</p>
                 </div>
               </div>
 
@@ -63,13 +73,13 @@ export default function Infografis() {
                 <img src="images/laki_laki.png" className="w-20" alt="laki" />
                 <div className="ml-5">
                   <p className="text-xl md:text-2xl lg:text-3xl font-bold">Laki-Laki</p>
-                  <p className="text-2xl md:text-3xl font-extrabold text-red-700">650</p>
+                  <p className="text-2xl md:text-3xl font-extrabold text-red-700">{dataPenduduk.totalLaki}</p>
                 </div>
               </div>
 
             </div>
           </div>
-          <PopulationPyramid />
+          {/* <PopulationPyramid /> */}
           <PieDusun/>
           <Data/>
           <Pekerjaan/>

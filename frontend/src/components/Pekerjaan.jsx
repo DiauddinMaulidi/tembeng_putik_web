@@ -1,13 +1,14 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+
 export default function Pekerjaan() {
-  const data = [
-    { jenis: "Pelajar/Mahasiswa", jumlah: 326 },
-    { jenis: "Belum/Tidak Bekerja", jumlah: 273 },
-    { jenis: "Mengurus Rumah Tangga", jumlah: 271 },
-    { jenis: "Buruh Harian Lepas", jumlah: 117 },
-    { jenis: "Nelayan/Perikanan", jumlah: 50 },
-    { jenis: "Petani/Pekebun", jumlah: 39 },
-    { jenis: "Wiraswasta", jumlah: 27 },
-  ];
+  const [data, setData] = useState([]);
+
+    useEffect(() => {
+      axios.get("http://localhost:5000/penduduk_tembeng/perPekerjaan")
+        .then(res => setData(res.data))
+        .catch(err => console.error(err));
+    }, []);
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 flex justify-center ">
@@ -19,9 +20,9 @@ export default function Pekerjaan() {
         </h1>
 
         {/* Table */}
-        <div className="overflow-x-auto rounded-lg border border-gray-200">
+        <div className="max-h-[350px] overflow-y-auto overflow-x-auto rounded-lg border border-gray-200">
           <table className="w-full border-collapse">
-            <thead className="bg-red-500 text-white">
+            <thead className="bg-blue-500 text-white sticky top-0 z-10">
               <tr>
                 <th className="p-3 text-left text-lg">Jenis Pekerjaan</th>
                 <th className="p-3 text-left text-lg">Jumlah</th>
@@ -30,21 +31,22 @@ export default function Pekerjaan() {
             <tbody>
               {data.map((row, i) => (
                 <tr key={i} className="border-b hover:bg-gray-50">
-                  <td className="p-3 text-gray-700">{row.jenis}</td>
-                  <td className="p-3 font-semibold text-gray-700">{row.jumlah}</td>
+                  <td className="p-3 text-gray-700">{row.name}</td>
+                  <td className="p-3 font-semibold text-gray-700">{row.value}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
 
+
         {/* Grid Statistik */}
         <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {data.map((item, index) => (
             <div key={index} className="bg-white border shadow-sm rounded-xl flex flex-col justify-between p-6 h-40">
-              <h2 className="text-gray-600 font-medium">{item.jenis}</h2>
+              <h2 className="text-gray-600 font-medium">{item.name}</h2>
               <p className="text-3xl font-bold text-gray-700 text-right">
-                {item.jumlah}
+                {item.value}
               </p>
             </div>
           ))}

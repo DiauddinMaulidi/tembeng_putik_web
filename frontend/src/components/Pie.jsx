@@ -1,18 +1,18 @@
+import axios from "axios";
 import { useState, useEffect } from "react";
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
-
-const dataDusun = [
-  { name: "Tembeng Putik Timuk I", value: 120 },
-  { name: "Tembeng Putik Timuk II", value: 180 },
-  { name: "Tembeng Putik Baret I", value: 150 },
-  { name: "Tembeng Putik Baret II", value: 110 },
-  { name: "Lengkok Lendang", value: 200 },
-];
 
 const COLORS = ["#4e79a7", "#f28e2b", "#59a14f", "#e15759", "#76b7b2"];
 
 export default function PieDusun() {
+  const [dataDusun, setDataDusun] = useState([]);
   const [showLabel, setShowLabel] = useState(true);
+
+  useEffect(() => {
+    axios.get("http://localhost:5000/penduduk_tembeng/dusun/jumlah")
+      .then(res => setDataDusun(res.data))
+      .catch(err => console.error(err));
+  }, []);
 
   // DETECT SCREEN SIZE
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function PieDusun() {
   }, []);
 
   return (
-    <div className="mx-auto mb-16 -mt-10">
+    <div className="mx-auto mb-16 mt-10">
       <h2 className="text-[40px] md:text-3xl lg:text-4xl font-bold mt-6 mx-5 md:mx-24 text-red-700">
         Berdasarkan Dusun
       </h2>

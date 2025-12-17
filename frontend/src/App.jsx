@@ -32,37 +32,42 @@ function App() {
   }, [pathname]);
 
   return (
-    <div className="bg-blue-50">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <CarouselPlugin />
-              <Sambutan />
-              <MapSelong/>
-              <Sotk />
-              <Administrasi />
-              <Berita />
-              <Belanja/>
-              <Gallery />
-            </>
-          }>
-        </Route>
-        <Route path="/profilDesa" element={<Profil />} />
-        <Route path="/berita/:judul" element={<DetailBerita />} />
-        <Route path="/infografis" element={<Infografis/>} />
-        <Route path="/belanja/:judul" element={<ProductCard />} />
-        <Route path="/pemerintah" element={<Pemerintah />} />
-        <Route path="/berita" element={<BeritaAll />} />
-        <Route path="/gallery" element={<GaleryAll />} />
-        <Route path="/belanja" element={<BelanjaAll />} />
-        <Route path="/infografis/pendidikan" element={<Pendidikan />} />
-        <Route path="/infografis/Kesehatan" element={<Kesehatan />} />
-      </Routes>
+
+      <main className="flex-1">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <CarouselPlugin />
+                <Sambutan />
+                <MapSelong/>
+                <Sotk />
+                <Administrasi />
+                <Berita />
+                <Belanja/>
+                <Gallery />
+              </>
+            }
+          />
+          <Route path="/profilDesa" element={<Profil />} />
+          <Route path="/berita/:judul" element={<DetailBerita />} />
+          <Route path="/infografis" element={<Infografis/>} />
+          <Route path="/belanja/:judul" element={<ProductCard />} />
+          <Route path="/pemerintah" element={<Pemerintah />} />
+          <Route path="/berita" element={<BeritaAll />} />
+          <Route path="/gallery" element={<GaleryAll />} />
+          <Route path="/belanja" element={<BelanjaAll />} />
+          <Route path="/infografis/pendidikan" element={<Pendidikan />} />
+          <Route path="/infografis/Kesehatan" element={<Kesehatan />} />
+        </Routes>
+      </main>
+
       <Footer />
-    </div>
+  </div>
+
   );
 }
 
