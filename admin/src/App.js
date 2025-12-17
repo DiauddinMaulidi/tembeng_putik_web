@@ -30,6 +30,9 @@ import Profile from "./scenes/profile";
 import Pendidikan from "./scenes/pendidikan";
 import TambahSekolah from "./components/TambahSekolah";
 import EditPendidikan from "./components/EditPendidikan";
+import Kesehatan from "./scenes/kesehatan";
+import TambahKesehatan from "./components/TambahKesehatan";
+import EditKesehatan from "./components/EditKesehatan";
 
 function Layout({ isSidebar, setIsSidebar }) {
   return (
@@ -68,6 +71,9 @@ function App() {
               <Route path="/pendidikan" element={<Pendidikan />} />
               <Route path="/pendidikan/tambah" element={<TambahSekolah />} />
               <Route path="/pendidikan/edit/:id" element={<EditPendidikan />} />
+              <Route path="/kesehatan" element={<Kesehatan />} />
+              <Route path="/kesehatan/tambah" element={<TambahKesehatan />} />
+              <Route path="/kesehatan/edit/:id" element={<EditKesehatan />} />
               <Route path="/dusun" element={<Dusun />} />
               <Route path="/dusun/edit/:id" element={<EditDusun />} />
               <Route path="/keluarga" element={<Keluarga />} />

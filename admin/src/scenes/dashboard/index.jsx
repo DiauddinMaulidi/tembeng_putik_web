@@ -10,6 +10,7 @@ const Dashboard = () => {
   const [jumlahSekolah, setJumlahSekolah] = useState(0)
   const [jumlahDusun, setJumlahDusun] = useState(0)
   const [jumlahKeluarga, setJumlahKeluarga] = useState(0)
+  const [jumlahKesehatan, setJumlahKesehatan] = useState(0)
   const navigate = useNavigate();
 
     const loadData = async () => {
@@ -32,6 +33,11 @@ const Dashboard = () => {
       setJumlahSekolah(res.data);
     };
 
+    const loadDataKesehatan = async () => {
+      const res = await axios.get("http://localhost:5000/kesehatan/sum");
+      setJumlahKesehatan(res.data);
+    };
+
 
 
     useEffect(()=> {
@@ -39,6 +45,7 @@ const Dashboard = () => {
       loadDataDusun()
       loadDataKeluarga()
       loadDataSekolah()
+      loadDataKesehatan()
     }, [])
 
   return (
@@ -154,6 +161,32 @@ const Dashboard = () => {
                 sx={{ color: "#fff", textTransform: "none" }}
                 endIcon={<span style={{ fontSize: "16px" }}>➜</span>}
                 onClick={() => navigate("/pendidikan")}
+              >
+                Lihat Detail
+              </Button>
+            </Box>
+          </Box>
+
+          <Box
+            gridColumn="span 3"
+            backgroundColor="#DE1A58"
+            color="#fff"
+            borderRadius="8px"
+            display="flex"
+            flexDirection="column"
+            p="20px"
+          >
+            <Typography variant="h3" fontWeight="700">{jumlahKesehatan}</Typography>
+            <Typography variant="h6">Kesehatan</Typography>
+
+            <Box flexGrow={1} />
+
+            <Box display="flex" justifyContent="flex-end">
+              <Button
+                variant="text"
+                sx={{ color: "#fff", textTransform: "none" }}
+                endIcon={<span style={{ fontSize: "16px" }}>➜</span>}
+                onClick={() => navigate("/kesehatan")}
               >
                 Lihat Detail
               </Button>

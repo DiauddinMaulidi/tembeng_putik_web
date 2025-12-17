@@ -371,37 +371,18 @@ app.delete("/pendidikan/:id", (req, res) => {
 // =========================================
 //                CRUD KESEHATAN
 // =========================================
-
-app.get("/stunting", (req, res) => {
-    const sql = `
-    SELECT id, nama, total, total_laki, total_pr FROM stunting
-  `;
-
-    db.query(sql, (err, rows) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).json({ message: "Gagal mengambil data" });
+app.get("/kesehatan/admin", (req, res) => {
+    db.query(
+        "SELECT * FROM kesehatan",
+        (err, rows) => {
+            if (err) return res.status(500).json(err);
+            res.json(rows);
         }
-
-        const data = rows.map(item => ({
-            id: item.id,
-            nama: item.nama,
-            jumlah: item.total,
-            dusun: [
-                { name: "Laki-laki", value: item.total_laki },
-                { name: "Perempuan", value: item.total_pr }
-            ]
-        }));
-
-        res.json(data);
-    });
+    );
 });
 
 app.get("/kesehatan", (req, res) => {
-    const sql = `
-    SELECT jenis_data, nama_desa, total
-    FROM kesehatan
-    ORDER BY jenis_data
+    const sql = `SELECT jenis_data, nama_dusun, total FROM kesehatan ORDER BY jenis_data
   `;
 
     db.query(sql, (err, rows) => {
@@ -420,7 +401,7 @@ app.get("/kesehatan", (req, res) => {
 
             grouped[r.jenis_data].jumlah += r.total;
             grouped[r.jenis_data].dusun.push({
-                name: r.nama_desa,
+                name: r.nama_dusun,
                 value: r.total
             });
         });
@@ -429,6 +410,45 @@ app.get("/kesehatan", (req, res) => {
     });
 });
 
+app.get("/kesehatan/sum", (req, res) => {
+    db.query("SELECT DISTINCT jenis_data FROM kesehatan", (err, result) => {
+        if (err) throw err;
+
+        const totalDataKesehatan = result.length;
+
+        res.json(totalDataKesehatan);
+    })
+})
+
+app.post("/kesehatan", (req, res) => {
+    const { jenisKesehatan, namaDusun, jumlah } = req.body;
+
+    db.query("INSERT INTO kesehatan ( jenis_data, nama_dusun, total ) VALUES (?, ?, ?)", [jenisKesehatan, namaDusun, jumlah], (err, result) => {
+        if (err) throw err;
+        res.json(result)
+    })
+})
+
+app.get("/kesehatan/edit/:id", (req, res) => {
+    db.query("SELECT * FROM kesehatan WHERE id=?", [req.params.id], (err, result) => {
+        if (err) throw err;
+        if (result.length === 0) {
+            return res.status(404).json({ message: "Data kesehatan tidak ditemukan" });
+        }
+        res.json(result[0]);
+    });
+});
+
+app.delete("/kesehatan/:id", (req, res) => {
+    db.query(
+        "DELETE FROM kesehatan WHERE id = ?",
+        [req.params.id],
+        (err) => {
+            if (err) return res.status(500).json(err);
+            res.json({ message: "Data berhasil dihapus" });
+        }
+    );
+});
 
 
 // =========================================
