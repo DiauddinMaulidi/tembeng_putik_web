@@ -26,7 +26,6 @@ const navigation = [
   { name: "Produk UMKM", href: "/belanja" },
 ]
 
-/* ✅ DATA SUBMENU INFOGRAFIS (SATU SUMBER) */
 const infografisMenu = [
   {
     name: "Penduduk",
@@ -67,14 +66,12 @@ export default function Navbar() {
   return (
     <Disclosure
       as="nav"
-      className={`fixed z-2000 w-full h-20 sm:h-24 lg:h-20 top-0 ${
-        isScroll ? "bg-blue-950" : "bg-transparent"
-      }`}
+      className={`fixed z-2000 w-full h-20 sm:h-24 lg:h-20 top-0 ${isScroll ? "bg-blue-950" : "bg-transparent"
+        }`}
     >
       <div className="mx-auto my-2 px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
 
-          {/* MOBILE TOGGLE */}
           <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
             <DisclosureButton className="group rounded-md p-2 text-gray-400 hover:bg-white/5 hover:text-white">
               <Bars3Icon className="block size-6 group-data-open:hidden" />
@@ -82,7 +79,6 @@ export default function Navbar() {
             </DisclosureButton>
           </div>
 
-          {/* LOGO */}
           <div className="flex flex-1 justify-center sm:justify-between">
             <Link to="/">
               <div className="flex items-center">
@@ -96,7 +92,6 @@ export default function Navbar() {
               </div>
             </Link>
 
-            {/* DESKTOP MENU */}
             <div className="hidden sm:block mt-2">
               <div className="flex items-center space-x-10 font-bold">
                 {navigation.map((item) =>
@@ -104,16 +99,15 @@ export default function Navbar() {
                     <NavigationMenu key={item.name}>
                       <NavigationMenuList>
                         <NavigationMenuItem>
-                          <NavigationMenuTrigger className="text-gray-300 bg-transparent hover:text-white data-[state=open]:text-white shadow-none">
+                          <NavigationMenuTrigger className="text-gray-300 text-base bg-transparent hover:text-white data-[state=open]:text-white shadow-none">
                             {item.name}
                           </NavigationMenuTrigger>
 
                           <NavigationMenuContent
-                            className={`${
-                              isScroll
-                                ? "bg-blue-900"
-                                : "bg-blue-950/70 backdrop-blur"
-                            } text-white rounded-md`}
+                            className={`${isScroll
+                              ? "bg-blue-900"
+                              : "bg-blue-950/70 backdrop-blur"
+                              } text-white rounded-md`}
                           >
                             <ul className="grid w-[320px] gap-4 p-4">
                               {infografisMenu.map((sub) => (

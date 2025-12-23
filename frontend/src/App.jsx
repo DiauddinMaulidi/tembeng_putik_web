@@ -21,7 +21,7 @@ import BeritaAll from "./components/BeritaAll";
 import GaleryAll from "./components/GaleryAll";
 import BelanjaAll from "./components/BelanjaAll";
 import Pendidikan from "./components/Pendidikan";
-import Kesehatan  from "./components/Kesehatan"
+import Kesehatan from "./components/Kesehatan"
 import { useEffect } from "react";
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
   }, [pathname]);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-blue-50">
       <Navbar />
 
       <main className="flex-1">
@@ -43,18 +43,18 @@ function App() {
               <>
                 <CarouselPlugin />
                 <Sambutan />
-                <MapSelong/>
+                <MapSelong />
                 <Sotk />
                 <Administrasi />
                 <Berita />
-                <Belanja/>
+                <Belanja />
                 <Gallery />
               </>
             }
           />
           <Route path="/profilDesa" element={<Profil />} />
           <Route path="/berita/:judul" element={<DetailBerita />} />
-          <Route path="/infografis" element={<Infografis/>} />
+          <Route path="/infografis" element={<Infografis />} />
           <Route path="/belanja/:judul" element={<ProductCard />} />
           <Route path="/pemerintah" element={<Pemerintah />} />
           <Route path="/berita" element={<BeritaAll />} />
@@ -66,7 +66,7 @@ function App() {
       </main>
 
       <Footer />
-  </div>
+    </div>
 
   );
 }

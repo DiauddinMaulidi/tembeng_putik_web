@@ -27,7 +27,7 @@ export default function HeroCarousel() {
       subtitle: "MTQ (Musabaqah Tilawatil Qur'an)",
     },
     {
-      image: "/images/Rapat Pembangunan Desa.jpg",
+      image: "/images/jembatan.jpg",
       title: "Pembangunan Desa",
       subtitle: "Maju, Mandiri, dan Sejahtera",
     },
