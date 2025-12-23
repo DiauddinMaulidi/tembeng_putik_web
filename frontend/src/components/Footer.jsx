@@ -1,0 +1,47 @@
+import { FaInstagram, FaFacebook, FaYoutube, FaPlay } from "react-icons/fa";
+
+export default function Footer() {
+  return (
+    <footer className="bg-blue-700 text-white py-5">
+      <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
+
+        {/* Desa Info */}
+        <div>
+          <h2 className="text-base font-bold mb-2">Pemerintah Desa Tembeng Putik</h2>
+          <p className="text-sm leading-relaxed">
+            Desa Tembeng Putik, Kec. Wanasaba,<br />
+            Kabupaten Lombok Timur,<br />
+            Provinsi Nusa Tenggara Barat 75385
+          </p>
+        </div>
+
+        {/* Contact */}
+        <div>
+          <h2 className="text-lg font-bold mb-2">Hubungi Kami</h2>
+          <p className="text-sm mb-1">📞 0877-4334-6203 (Operator Desa)</p>
+        </div>
+
+        {/* Important Numbers */}
+        <div>
+          <h2 className="text-lg font-bold mb-2">Nomor Telepon Penting</h2>
+          <p className="text-sm">• Drs. FAHMI (Kades Tembeng Putik)</p>
+          <p className="text-sm">• ROHMAN SANI, S.Pd (Operator Desa Tembeng Putik)</p>
+        </div>
+
+        {/* Links */}
+        <div>
+          <h2 className="text-lg font-bold mb-2">Jelajahi</h2>
+          <ul className="text-sm space-y-1">
+            <li><a href="/" className="hover:text-gray-300 transition">Website Tembeng Putik</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      {/* Bottom bar */}
+      <div className="text-center text-sm mt-8 border-t border-white/20 pt-4">
+        © {new Date().getFullYear()} Powered by Tembeng Putik
+      </div>
+    </footer>
+  );
+}
