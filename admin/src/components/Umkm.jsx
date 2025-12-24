@@ -96,20 +96,8 @@ export default function UmkmDetail({ data }) {
             marginTop: 10,
           }}
         >
-            Hubungi Penjual
+          Hubungi Penjual
         </a>
-
-        <div
-          style={{
-            marginTop: 14,
-            display: "flex",
-            alignItems: "center",
-            gap: 14,
-            color: "#555",
-          }}
-        >
-          <span>Bagikan:</span>
-        </div>
       </div>
     </div>
   );

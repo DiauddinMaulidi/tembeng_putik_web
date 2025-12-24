@@ -7,15 +7,15 @@ export default function Belanja() {
   const [dataUmkm, setDataUmkm] = useState([]);
 
   const loadData = async () => {
-      try {
-        const res = await axios.get(
-          `${import.meta.env.VITE_API_URL}/penduduk_tembeng/umkm`
-        );
-        setDataUmkm(res.data);
-      } catch (err) {
-        console.error("Gagal memuat UMKM:", err);
-      }
-    };
+    try {
+      const res = await axios.get(
+        `http://localhost:5000/penduduk_tembeng/umkm`
+      );
+      setDataUmkm(res.data);
+    } catch (err) {
+      console.error("Gagal memuat UMKM:", err);
+    }
+  };
 
   useEffect(() => {
     loadData();
@@ -40,7 +40,7 @@ export default function Belanja() {
               className="max-w-sm"
               renderImage={() => (
                 <img
-                  src={`${import.meta.env.VITE_API_URL}/assets/${belanja.images[0]}`}
+                  src={`http://localhost:5000/assets/${belanja.images[0]}`}
                   alt={belanja.judul}
                   className="h-56 w-full object-cover rounded-t-lg"
                 />
@@ -57,11 +57,11 @@ export default function Belanja() {
         ))}
       </div>
 
-        <div className='flex justify-center mt-2 sm:justify-end rounded-sm bg-blue-700 sm:bg-blue-50 mx-5 md:mx-24'>
-            <Link to={"/belanja"}>
-                <h1 className="py-3 font-bold">LIHAT LEBIH BANYAK</h1>
-            </Link>
-        </div>
+      <div className='flex justify-center mt-2 sm:justify-end rounded-sm bg-blue-700 sm:bg-blue-50 mx-5 md:mx-24'>
+        <Link to={"/belanja"}>
+          <h1 className="py-3 font-bold">LIHAT LEBIH BANYAK</h1>
+        </Link>
+      </div>
     </div>
   );
 }

@@ -3,47 +3,23 @@ import { Card } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-// const belanjas = [
-//   {
-//     id: 1,
-//     img: "/images/tempe.jpeg",
-//     judul: "Tempe",
-//     slug: "Tempe",
-//     harga: "Rp5.000"
-//   },
-//   {
-//     id: 2,
-//     img: "/images/kerajinan.jpeg",
-//     judul: "Kerajinan Tangan",
-//     slug: "Kerajinan-Tangan",
-//     harga: "Rp25.000"
-//   },
-//   {
-//     id: 3,
-//     img: "/images/tikar_pandan.jpg",
-//     judul: "Tikar Pandan",
-//     slug: "Tikar-Pandan",
-//     harga: "Rp25.000"
-//   },
-// ];
-
 export default function Belanja() {
   const [dataUmkm, setDataUmkm] = useState([]);
 
-    const loadData = async () => {
-        try {
-          const res = await axios.get(
-            `${import.meta.env.VITE_API_URL}/penduduk_tembeng/umkm`
-          );
-          setDataUmkm(res.data);
-        } catch (err) {
-          console.error("Gagal memuat UMKM:", err);
-        }
-      };
+  const loadData = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:5000/penduduk_tembeng/umkm`
+      );
+      setDataUmkm(res.data);
+    } catch (err) {
+      console.error("Gagal memuat UMKM:", err);
+    }
+  };
 
-    useEffect(() => {
-      loadData();
-    }, []);
+  useEffect(() => {
+    loadData();
+  }, []);
   return (
     <div className="w-full justify-between mb-50">
       <div className="grid grid-cols-3 gap-2 w-full px-4 md:pl-12 md:pr-7 mt-20">
@@ -63,7 +39,7 @@ export default function Belanja() {
               className="max-w-sm"
               renderImage={() => (
                 <img
-                  src={`${import.meta.env.VITE_API_URL}/assets/${belanja.images[0]}`}
+                  src={`http://localhost:5000/assets/${belanja.images[0]}`}
                   alt={belanja.judul}
                   className="h-56 w-full object-cover rounded-t-lg"
                 />

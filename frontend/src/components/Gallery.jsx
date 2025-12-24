@@ -16,7 +16,7 @@ export default function Gallery() {
     const [dataGallery, setDataGallery] = useState([])
 
     const loadGallery = async () => {
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}/penduduk_tembeng/gallery`)
+        const res = await axios.get(`http://localhost:5000/penduduk_tembeng/gallery`)
         setDataGallery(res.data)
     }
 
@@ -52,11 +52,11 @@ export default function Gallery() {
                 ))}
             </LightGallery>
 
-        <div className='flex justify-center sm:justify-end mt-3 rounded-sm bg-blue-700 sm:bg-blue-50 mx-5 md:mx-24'>
-            <Link to={"/gallery"}>
-                <h1 className="py-3 font-bold">LIHAT LEBIH BANYAK</h1>
-            </Link>
-        </div>
+            <div className='flex justify-center sm:justify-end mt-3 rounded-sm bg-blue-700 sm:bg-blue-50 mx-5 md:mx-24'>
+                <Link to={"/gallery"}>
+                    <h1 className="py-3 font-bold">LIHAT LEBIH BANYAK</h1>
+                </Link>
+            </div>
         </div>
     );
 }
