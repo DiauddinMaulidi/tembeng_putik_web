@@ -7,7 +7,7 @@ export default function Administrasi() {
   const [dataPenduduk, setDataPenduduk] = useState(0);
 
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_API_URL}/penduduk_tembeng/sum`)
+    axios.get(`http://localhost:5000/penduduk_tembeng/sum`)
       .then((res) => setDataPenduduk(res.data))
       .catch((err) => console.log(err));
   }, []);

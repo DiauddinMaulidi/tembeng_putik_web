@@ -147,7 +147,7 @@ export default function Penduduk() {
           Tambah Penduduk
         </button>
 
-        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           {/* SEARCH */}
           <input
             type="text"

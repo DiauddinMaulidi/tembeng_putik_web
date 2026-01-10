@@ -5,7 +5,7 @@ export default function Pekerjaan() {
   const [data, setData] = useState([]);
 
     useEffect(() => {
-      axios.get(`${import.meta.env.VITE_API_URL}/penduduk_tembeng/perPekerjaan`)
+      axios.get(`http://localhost:5000/penduduk_tembeng/perPekerjaan`)
         .then(res => setData(res.data))
         .catch(err => console.error(err));
     }, []);

@@ -159,6 +159,19 @@ app.get("/me", require("./middleware/verifyToken"), async (req, res) => {
     }
 });
 
+// =========================================
+//              CRUD USERS
+// =========================================
+app.get("/penduduk_tembeng/users", (req, res) => {
+    db.query("SELECT * FROM users", (err, result) => {
+
+        if (err) throw err;
+        res.json(result);
+    });
+})
+
+
+
 
 // =========================================
 //              CRUD PENDUDUK

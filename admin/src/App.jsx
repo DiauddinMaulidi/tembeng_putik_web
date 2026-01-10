@@ -33,6 +33,7 @@ import EditPendidikan from "./components/EditPendidikan";
 import Kesehatan from "./scenes/kesehatan";
 import TambahKesehatan from "./components/TambahKesehatan";
 import EditKesehatan from "./components/EditKesehatan";
+import AddUser from "./scenes/form/addUser";
 
 function Layout({ isSidebar, setIsSidebar }) {
   return (
@@ -89,6 +90,7 @@ function App() {
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/form" element={<Form />} />
+              <Route path="/form/tambah" element={<AddUser />} />
             </Route>
           </Route>
         </Routes>

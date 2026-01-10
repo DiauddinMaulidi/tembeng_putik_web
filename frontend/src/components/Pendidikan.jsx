@@ -7,7 +7,7 @@ export default function Pendidikan() {
   const [dataSekolah, setDataSekolah] = useState([])
 
   const loadData = async () => {
-    const res = await axios.get(`${import.meta.env.VITE_API_URL}/pendidikan`)
+    const res = await axios.get(`http://localhost:5000/pendidikan`)
     setDataSekolah(res.data)
   }
 

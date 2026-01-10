@@ -6,7 +6,7 @@ export default function Perkawinan() {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_API_URL}/penduduk_tembeng/perPerkawinan`)
+      .get(`http://localhost:5000/penduduk_tembeng/perPerkawinan`)
       .then((res) => setData(res.data))
       .catch((err) => console.error(err));
   }, []);

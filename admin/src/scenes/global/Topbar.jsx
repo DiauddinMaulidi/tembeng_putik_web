@@ -55,9 +55,9 @@ const Topbar = () => {
                         <LightModeOutlinedIcon />
                     )}
                 </IconButton>
-                <IconButton>
+                {/* <IconButton>
                     <NotificationsOutlinedIcon />
-                </IconButton>
+                </IconButton> */}
 
                 {/* --- ICON PROFILE YANG MEMBUKA MENU LOGOUT --- */}
                 <IconButton
@@ -82,9 +82,9 @@ const Topbar = () => {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
                 {/* Opsi 1: Profile (Opsional, Anda bisa menambahkan link ke halaman profile) */}
-                <MenuItem onClick={handleClose}>
+                {/* <MenuItem onClick={handleClose}>
                     <PersonOutlinedIcon sx={{ mr: 1 }} /> Profile Saya
-                </MenuItem>
+                </MenuItem> */}
 
                 {/* Opsi 2: Tombol Logout */}
                 <MenuItem onClick={handleLogout}>

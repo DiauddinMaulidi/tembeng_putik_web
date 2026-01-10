@@ -9,7 +9,7 @@ export default function PieDusun() {
   const [showLabel, setShowLabel] = useState(true);
 
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_API_URL}/penduduk_tembeng/dusun/jumlah`)
+    axios.get(`http://localhost:5000/penduduk_tembeng/dusun/jumlah`)
       .then(res => setDataDusun(res.data))
       .catch(err => console.error(err));
   }, []);

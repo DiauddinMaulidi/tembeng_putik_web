@@ -8,7 +8,8 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   // State untuk menampilkan pesan error atau sukses
   const [message, setMessage] = useState('');
-const navigate=useNavigate()
+  const [showPass, setShowPass] = useState(false);
+  const navigate=useNavigate()
   // URL endpoint login backend
   const API_URL = 'http://localhost:5000/login'; // Sesuaikan jika perlu
 
@@ -44,42 +45,83 @@ const navigate=useNavigate()
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '400px', margin: '50px auto', border: '1px solid #ccc', borderRadius: '8px' }}>
-      <h2>Login Pengguna</h2>
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '15px' }}>
-          <label htmlFor="username" style={{ display: 'block', marginBottom: '5px' }}>Username:</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+    <div className="login-page">
+          <div className="login-card">
+            <h2 className="title">LOGIN DULU</h2>
+            <p className="subtitle">Login untuk ke dashboard</p>
+
+            <form onSubmit={handleSubmit}>
+              {/* Email */}
+              <div className="form-group">
+                <label htmlFor="username">Username</label>
+                <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)} required />
+              </div>
+
+              {/* Password */}
+              <div className="form-group">
+                <label>Password</label>
+                <div className="password-field">
+                  <input
+                    type={showPass ? "text" : "password"} id="password" value={password} onChange={(e) => setPassword(e.target.value)}
             required
-            style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
-          />
+                  />
+                  <button
+                    type="button"
+                    className="toggle-btn"
+                    onClick={() => setShowPass(!showPass)}
+                  >
+                    {showPass ? "Hide" : "Show"}
+                  </button>
+                </div>
+              </div>
+
+              <button type='submit' className="login-btn">Login</button>
+
+            </form>
+            {message && (
+              <p style={{ marginTop: '20px', color: message.includes('Gagal') ? 'red' : 'green' }}>
+                {message}
+              </p>
+            )}
+          </div>
         </div>
-        <div style={{ marginBottom: '15px' }}>
-          <label htmlFor="password" style={{ display: 'block', marginBottom: '5px' }}>Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
-          />
-        </div>
-        <button type="submit" style={{ width: '100%', padding: '10px', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
-          Login
-        </button>
-      </form>
-      {/* Menampilkan pesan */}
-      {message && (
-        <p style={{ marginTop: '20px', color: message.includes('Gagal') ? 'red' : 'green' }}>
-          {message}
-        </p>
-      )}
-    </div>
+
+    // <div style={{ padding: '20px', maxWidth: '400px', margin: '50px auto', border: '1px solid #ccc', borderRadius: '8px' }}>
+    //   <h2>Login Pengguna</h2>
+    //   <form onSubmit={handleSubmit}>
+    //     <div style={{ marginBottom: '15px' }}>
+    //       <label htmlFor="username" style={{ display: 'block', marginBottom: '5px' }}>Username:</label>
+    //       <input
+    //         type="text"
+    //         id="username"
+    //         value={username}
+    //         onChange={(e) => setUsername(e.target.value)}
+    //         required
+    //         style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
+    //       />
+    //     </div>
+    //     <div style={{ marginBottom: '15px' }}>
+    //       <label htmlFor="password" style={{ display: 'block', marginBottom: '5px' }}>Password:</label>
+    //       <input
+    //         type="password"
+    //         id="password"
+    //         value={password}
+    //         onChange={(e) => setPassword(e.target.value)}
+    //         required
+    //         style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
+    //       />
+    //     </div>
+    //     <button type="submit" style={{ width: '100%', padding: '10px', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+    //       Login
+    //     </button>
+    //   </form>
+    //   {/* Menampilkan pesan */}
+    //   {message && (
+    //     <p style={{ marginTop: '20px', color: message.includes('Gagal') ? 'red' : 'green' }}>
+    //       {message}
+    //     </p>
+    //   )}
+    // </div>
   );
 };
 
