@@ -8,7 +8,6 @@ import DownloadOptions from "../../components/DownloadOptions";
 
 export default function Pendidikan() {
   const [data, setData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
   const [search, setSearch] = useState("");
 
   const navigate = useNavigate();
@@ -17,29 +16,21 @@ export default function Pendidikan() {
   const loadData = async () => {
     const res = await axios.get("http://localhost:5000/pendidikan");
     setData(res.data);
-    setFilteredData(res.data);
   };
 
   useEffect(() => {
     loadData();
   }, []);
 
-  // SEARCH FILTER
-  useEffect(() => {
-    const result = data.filter((item) => {
-      return (
-        item["nama_sekolah"]?.toLowerCase().includes(search.toLowerCase()) ||
-        item["kepsek"]?.toLowerCase().includes(search.toLowerCase()) ||
-        item["total_siswa"]?.toLowerCase().includes(search.toLowerCase()) ||
-        item["total_laki"]?.toLowerCase().includes(search.toLowerCase()) ||
-        item["total_perempuan"]?.toLowerCase().includes(search.toLowerCase()) ||
-        item["status_sekolah"]?.toLowerCase().includes(search.toLowerCase()) ||
-        item["jumlah_guru"]?.toLowerCase().includes(search.toLowerCase())
-      );
-    });
-
-    setFilteredData(result);
-  }, [search, data]);
+  const filteredData = data.filter((row) =>
+    row.nama_sekolah.toLowerCase().includes(search.toLowerCase()) ||
+    row.kepsek.toLowerCase().includes(search.toLowerCase()) ||
+    row.status_sekolah.toLowerCase().includes(search.toLowerCase()) ||
+    String(row.total_siswa).includes(search) ||
+    String(row.total_laki).includes(search) ||
+    String(row.total_perempuan).includes(search) ||
+    String(row.jumlah_guru).includes(search)
+  );
 
   // DELETE DATA
   const deleteData = async (id) => {
@@ -130,7 +121,7 @@ export default function Pendidikan() {
               border: "1px solid #ccc",
             }}
           />
-          <DownloadOptions data={data} />
+          <DownloadOptions data={filteredData} />
         </div>
 
       </div>
